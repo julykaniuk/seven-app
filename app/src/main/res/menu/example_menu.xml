@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/views"
+        android:icon="@drawable/more"
+        android:title="Views"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/calendar"
+                android:title="@string/calendar"
+                app:showAsAction="never"
+                />
+            <item
+                android:id="@+id/weekly"
+                android:title="@string/weekly"
+                app:showAsAction="never"
+                />
+            <item
+                android:id="@+id/monthly"
+                android:title="@string/monthly"
+                app:showAsAction="never"
+                />
+        </menu>
+
+    </item>
+
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/settings_24"
+        android:title="@string/setting"
+        app:showAsAction="ifRoom" />
+
+</menu>

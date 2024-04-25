@@ -1,0 +1,114 @@
+<resources>
+    <string name="app_name">Seven app</string>
+    <!--Onboarding Walkthrough Screens -->
+    <string name="screen1">Time management</string>
+    <string name="screen2">Organization of events</string>
+    <string name="screen3">Work done on time</string>
+    <string name="screen1desk">Learn how to apply time management in your life with the help of this application.</string>
+    <string name="screen2desk">Organize your events with only this application</string>
+    <string name="screen3desk">Organizing work tasks is easy with this application</string>
+    <string name="screen">Welcome to SEVEN!</string>
+    <string name="startDesk">Create your perfect routine with this app</string>
+    <string name="buttom1">Login now</string>
+
+    <!--Login -->
+    <string name="login">Login to your Account</string>
+    <string name="login1">- Or sign in with -</string>
+    <string name="login2">Don’t have an account?</string>
+    <string name="sindup"> Sing up</string>
+    <string name="login3">Forgot password ?</string>
+    <string name="loginButton">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+
+    <!--Sing up-->
+    <string name="name">Username</string>
+    <string name="number">Phone number</string>
+    <string name="name2">Name</string>
+    <string name="account">Create your Account</string>
+    <string name="agree">By signing up, you’re agree to our Terms and Conditions and Privacy Policy</string>
+    <string name="buttonSingin">Sing in</string>
+    <string name="Eror">Username cannot be empty</string>
+
+    <!--Menu-->
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="calendar">Calendar</string>
+    <string name="profile">Profile</string>
+
+    <!--Home-->
+    <string name="all">All</string>
+    <string name="completed">Сompleted</string>
+    <string name="active">Active</string>
+    <string name="todo">ToDo List</string>
+
+
+    <!--Search-->
+
+    <!--Calendar-->
+    <string name="today">TODAY</string>
+    <string name="weekly">Weekly</string>
+    <string name="monthly">Monthly</string>
+
+    <!--Profile-->
+    <string name="nameprifile">Username</string>
+    <string name="emailAddress">Email Address</string>
+    <string name="changePassword">Change Password</string>
+    <string name="language">Language</string>
+    <string name="notification">Notification</string>
+    <string name="sing_out">Sing out</string>
+    <string name="edit">Edit</string>
+    <string name="darkMode">Dark Mode</string>
+
+
+    <!--Edit Profile-->
+    <string name="save">Save</string>
+    <string name="back">Back</string>
+
+    <!--Event-->
+    <string name="event">Event</string>
+    <string name="done">Done</string>
+    <string name="all_day">All day</string>
+    <string name="start">Starts</string>
+    <string name="end">Ends</string>
+    <string name="repeate">Repeate</string>
+    <string name="reminder">Reminder</string>
+    <string name="delete">Delete</string>
+    <string name="update">Update</string>
+    <string name="complete">Complete</string>
+    <string name="add_a_event">Add a event</string>
+    <string name="task">Task</string>
+    <string name="event_date">Event date</string>
+    <string name="event_time">Event time</string>
+    <string name="titled">Title</string>
+    <string name="before">Before</string>
+    <string name="custom">Custom</string>
+
+    <string name="add">Add</string>
+    <string name="add_participants">Add participants</string>
+    <string name="add_location">Add location</string>
+    <string name="add_notification">Add notification</string>
+    <string name="add_notes">Add notes</string>
+    <string name="congrats_you_have_completed_the_task_successfully">Congrats!... You have completed the task successfully...</string>
+    <string name="see_all_tasks">See all tasks</string>
+
+
+    <!--location-->
+    <string name="use_this_location">Use this location?</string>
+    <string name="change_location">Change Location</string>
+    <string name="select">Select</string>
+
+
+    <!--Setting-->
+    <string name="change">Change</string>
+    <string name="setting">SETTINGS</string>
+    <string name="default_reminder_time">Default Reminder Time</string>
+    <string-array name="date_array">
+        <item>minutes</item>
+        <item>hours</item>
+        <item>days</item>
+    </string-array>
+    <string name="default_notification_sound">Default Notification Sound</string>
+
+
+</resources>
