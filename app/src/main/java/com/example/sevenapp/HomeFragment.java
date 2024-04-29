@@ -42,22 +42,18 @@ public class HomeFragment extends Fragment  {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        // Ініціалізація RecyclerView
         recyclerView = view.findViewById(R.id.weeklyRecyclerView); // переконайтеся, що це правильний ID
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Ініціалізація бази даних (якщо використовуєте SQLite)
         EventDBHelper dbHelper = new EventDBHelper(getContext());
         mDatabase = dbHelper.getWritableDatabase();
 
-        // Встановлення адаптера з даними
         adapter = new EventAdapter1(getContext(), fetchEventsFromDatabase()); // Ваш адаптер
         recyclerView.setAdapter(adapter);
 
         return view;
     }
 
-    // Метод для отримання даних з бази даних
     private Cursor fetchEventsFromDatabase() {
         // Змініть SQL-запит відповідно до вашої таблиці подій
         String sqlQuery = "SELECT * FROM " + EventDB.Event.TABLE_NAME + " ORDER BY datetime(" + EventDB.Event.COLUMN_START + ") ASC;";

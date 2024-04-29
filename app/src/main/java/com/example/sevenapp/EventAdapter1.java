@@ -21,6 +21,7 @@ public class EventAdapter1 extends RecyclerView.Adapter<EventAdapter1.EventViewH
 
     private OnItemClickListener listener;
 
+
     public interface OnItemClickListener {
         void onItemClick(String eventName, String start, String end);
     }
