@@ -18,7 +18,6 @@ import java.util.Locale;
 public class EventAdapter1 extends RecyclerView.Adapter<EventAdapter1.EventViewHolder> {
     private Context mContext;
     private Cursor mCursor;
-
     private OnItemClickListener listener;
 
 

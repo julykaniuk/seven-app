@@ -33,7 +33,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment  {
     private RecyclerView recyclerView;
-    private EventAdapter1 adapter; // Ваш адаптер
+    private EventAdapter1 adapter;
     private SQLiteDatabase mDatabase;
 
     @Nullable
