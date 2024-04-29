@@ -77,4 +77,16 @@
     <string name="default_reminder_time">Час нагадування за умовчанням</string>
     <string name="default_notification_sound">Звук сповіщення за умовчанням</string>
     <string name="today">Сьогодні</string>
+    <string name="jan">Січ.</string>
+    <string name="feb">Лют.</string>
+    <string name="mar">Берез.</string>
+    <string name="apr">Квіт.</string>
+    <string name="may">Трав.</string>
+    <string name="jun">Черв.</string>
+    <string name="jul">Лип.</string>
+    <string name="aug">Серп.</string>
+    <string name="sep">Верес.</string>
+    <string name="oct">Жовт.</string>
+    <string name="nov">Листоп.</string>
+    <string name="dec">Груд.</string>
 </resources>
