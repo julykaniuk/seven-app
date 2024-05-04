@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import android.database.Cursor;
 import com.example.sevenapp.EventDB.*;
 
 public class EventDBHelper extends SQLiteOpenHelper {
@@ -46,5 +47,15 @@ public class EventDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + Event.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + Event.REMINDER_TABLE_NAME);
         onCreate(sqLiteDatabase);
+    }
+    public Cursor findEventByName(String partialEventName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Використання LIKE з % для пошуку рядків, що містять partialEventName
+        String query = "SELECT * FROM " + Event.TABLE_NAME +
+                " WHERE " + Event.COLUMN_NAME + " LIKE ?";
+        Cursor cursor = db.rawQuery(query, new String[]{"%" + partialEventName + "%"});
+
+        return cursor; // Повертає Cursor з результатами пошуку
     }
 }
