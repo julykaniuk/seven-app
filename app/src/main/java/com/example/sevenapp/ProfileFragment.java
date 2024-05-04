@@ -15,13 +15,14 @@ import android.widget.TextView;
 public class ProfileFragment extends Fragment {
     TextView edit;
 
-    Button notificationButton;
+    Button notificationButton, changeLanguage;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         edit = view.findViewById(R.id.edit);
         notificationButton=view.findViewById(R.id.changeNotificatinn);
+        changeLanguage=view.findViewById(R.id.changeLanguage);
 
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,7 +38,13 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
+        changeLanguage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(),LanguageChange.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 }
