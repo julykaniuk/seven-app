@@ -1,15 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SearchFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="search" />
+    <EditText
+        android:id="@+id/search_query"
+        android:layout_width="345dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="20dp"
+        android:hint="@string/search" />
 
+    <ImageView
+        android:id="@+id/search_button"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/search" /> <!-- зображення пошуку -->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/weeklyRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp" />
 </FrameLayout>
