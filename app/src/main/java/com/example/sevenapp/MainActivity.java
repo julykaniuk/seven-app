@@ -14,7 +14,7 @@ import com.example.sevenapp.databinding.ActivityMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
-
+    private String userKey;
     private ActivityMainBinding binding;
 
     @Override
@@ -31,9 +31,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);  // Запускає активність
             }
         });
-        replaceFragment(new HomeFragment());
-        binding.bottomNavigation.setBackground(null);
+        if (savedInstanceState == null) { // Переконайтеся, що це тільки при першому завантаженні
+            replaceFragment(new HomeFragment());
+        }
 
+        binding.bottomNavigation.setBackground(null);
         binding.bottomNavigation.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.home) {
                 replaceFragment(new HomeFragment());
@@ -42,12 +44,20 @@ public class MainActivity extends AppCompatActivity {
             } else if (item.getItemId() == R.id.calendar) {
                 replaceFragment(new CalendarFragment());
             } else if (item.getItemId() == R.id.profile) {
-                replaceFragment(new ProfileFragment());
+                ProfileFragment profileFragment = new ProfileFragment();
+                if (userKey != null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("USER_KEY", userKey);
+                    profileFragment.setArguments(bundle);
+                }
+                replaceFragment(profileFragment);
+
             }
 
             return true;
         });
-
+        Intent intent = getIntent();
+        userKey = intent.getStringExtra("USER_KEY");
 
     }
 

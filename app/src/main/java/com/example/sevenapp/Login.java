@@ -102,8 +102,10 @@ public class Login extends AppCompatActivity {
                         String passwordFromDB = userSnapshot.child("password").getValue(String.class);
                         if (passwordFromDB.equals(userPassword)) {
                             // Пароль введено правильно
+                            String userKey = userSnapshot.getKey();
                             loginUsername.setError(null);
                             Intent intent = new Intent(Login.this, MainActivity.class);
+                            intent.putExtra("USER_KEY", userKey);
                             startActivity(intent);
                         } else {
                             // Неправильний пароль
