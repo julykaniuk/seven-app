@@ -44,6 +44,7 @@ public class Reminder extends AppCompatActivity implements DatePickerDialog.OnDa
     private EditText amountET;
     private Button addButton, deleteButton, clearButton1, clearButton2, clearButton3, clearButton4,
             clearButton5, clearButton6;
+
     private TextView reminder1, reminder2, reminder3, reminder4, reminder5, reminder6;
     private RadioGroup reminderRG;
     private RadioButton reminderRB;

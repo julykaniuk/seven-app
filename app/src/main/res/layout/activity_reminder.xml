@@ -185,7 +185,7 @@
             android:onClick="reminderCheck"/>
     </RadioGroup>
 
-    <ImageButton
+    <Button
         android:id="@+id/clearButton1"
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -196,7 +196,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/deleteButton" />
 
-    <ImageButton
+    <Button
         android:id="@+id/clearButton6"
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -207,7 +207,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/clearButton5" />
 
-    <ImageButton
+    <Button
         android:id="@+id/clearButton5"
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -218,7 +218,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/clearButton4" />
 
-    <ImageButton
+    <Button
         android:id="@+id/clearButton4"
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -229,7 +229,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/clearButton3" />
 
-    <ImageButton
+    <Button
         android:id="@+id/clearButton3"
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -240,7 +240,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/clearButton2" />
 
-    <ImageButton
+    <Button
         android:id="@+id/clearButton2"
         android:layout_width="30dp"
         android:layout_height="30dp"
