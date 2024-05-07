@@ -35,6 +35,9 @@ import static com.example.sevenapp.SettingsActivity.MyPreferences;
 import static com.example.sevenapp.SettingsActivity.ReminderAmount;
 import static com.example.sevenapp.SettingsActivity.ReminderDate;
 
+import android.content.Context;
+import android.content.BroadcastReceiver;
+
 public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,
         TimePickerDialog.OnTimeSetListener {    private SQLiteDatabase mDatabase;
     private EditText eventNameET, noteET;
@@ -307,6 +310,9 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
                             insertToCV(eventName, start, end, note);
                             cv.put(EventDB.Event.COLUMN_SERI, SERI);
                             updateRow(view, ID);
+
+                            Intent updateIntent = new Intent("com.example.sevenapp.ACTION_UPDATE_EVENT_WIDGET");
+                            view.getContext().sendBroadcast(updateIntent);
                             if (!reminded)
                                 defaultReminderSettings();
                             addReminder(cv);
@@ -321,6 +327,9 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
                                 insertToCV(eventName, start, end, note);
                                 cv.put(EventDB.Event.COLUMN_SERI, SERI);
                                 updateRow(view, ID);
+
+                                Intent updateIntent = new Intent("com.example.sevenapp.ACTION_UPDATE_EVENT_WIDGET");
+                                view.getContext().sendBroadcast(updateIntent);
                                 if (!reminded)
                                     defaultReminderSettings();
                                 addReminder(cv);
@@ -354,6 +363,9 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
                         }
                         else if (ID != -1) { // update
                             updateRow(view, ID);
+
+                            Intent updateIntent = new Intent("com.example.sevenapp.ACTION_UPDATE_EVENT_WIDGET");
+                            view.getContext().sendBroadcast(updateIntent);
                             if (!reminded)
                                 defaultReminderSettings();
                             addReminder(cv);
@@ -362,7 +374,8 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
                         }
                     }
                 }
-            }
+        }
+
         });
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -403,6 +416,8 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
                     eventNameET.getText().clear();
                     noteET.getText().clear();
                 }
+                Intent updateIntent = new Intent("com.example.sevenapp.ACTION_UPDATE_EVENT_WIDGET");
+                view.getContext().sendBroadcast(updateIntent);
             }
         });
 

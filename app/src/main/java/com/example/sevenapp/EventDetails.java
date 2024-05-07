@@ -6,6 +6,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+
+
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -52,7 +58,10 @@ public class EventDetails extends AppCompatActivity {
                 editEventIntent.putExtra("END", end);
                 editEventIntent.putExtra("EDIT", "true");
                 startActivity(editEventIntent);
+                Intent updateIntent = new Intent("com.example.sevenapp.ACTION_UPDATE_EVENT_WIDGET");
+                v.getContext().sendBroadcast(updateIntent);
             }
+
         });
 
         shareButton.setOnClickListener(new View.OnClickListener() {

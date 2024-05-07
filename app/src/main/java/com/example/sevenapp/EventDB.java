@@ -4,7 +4,7 @@ import android.provider.BaseColumns;
 
 public class EventDB {
 
-    private EventDB() {}
+    public EventDB() {}
 
     public static final class Event implements BaseColumns {
         public static final String TABLE_NAME = "EVENTS";

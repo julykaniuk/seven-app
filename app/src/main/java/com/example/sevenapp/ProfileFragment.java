@@ -21,6 +21,7 @@ public class ProfileFragment extends Fragment {
     TextView edit;
     private DatabaseReference mDatabase;
     private TextView userNameView;
+    private String userName;
     Button notificationButton, changeLanguage;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,6 +57,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), EditProfile.class);
+                intent.putExtra("username", userName);
                 startActivity(intent);
             }
         });
