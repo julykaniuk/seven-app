@@ -31,7 +31,7 @@ public class SettingsActivity extends AppCompatActivity {
     EditText amount;
     Spinner timeSpinner;
     Button changeButton, saveButtonSettings;
-    Switch darkMode;
+    Switch darkMode, ukrainianHolidaysSwitch, notiSwitch;
     SharedPreferences sharedPreferences;
     int dateSP;
     boolean darkSP;
@@ -43,6 +43,8 @@ public class SettingsActivity extends AppCompatActivity {
     public static final String NotificationSound = "NotificationSoundKey";
     public static final String DarkMode = "DarkModeKey";
 
+    public static final String NotificationEnabled = "NotificationEnabledKey";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,10 +55,19 @@ public class SettingsActivity extends AppCompatActivity {
         changeButton = findViewById(R.id.changeButton);
         darkMode = findViewById(R.id.darkSwitch);
         saveButtonSettings = findViewById(R.id.saveButtonSettings);
+        ukrainianHolidaysSwitch = findViewById(R.id.holiSwitch);
+        notiSwitch = findViewById(R.id.notiSwitch);
 
         sharedPreferences = getSharedPreferences(MyPreferences, Context.MODE_PRIVATE);
 
-
+        notiSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(NotificationEnabled, isChecked);
+                editor.apply();
+            }
+        });
         ArrayAdapter<String> dateAdapter = new ArrayAdapter<String>(SettingsActivity.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.date_array));
         dateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -144,6 +155,7 @@ public class SettingsActivity extends AppCompatActivity {
         darkSP = sharedPreferences.getBoolean(DarkMode, false);
         amountSP = sharedPreferences.getString(ReminderAmount, "10");
         dateSP = sharedPreferences.getInt(ReminderDate, 0);
+        notiSwitch.setChecked(sharedPreferences.getBoolean(NotificationEnabled, false));
 
         darkMode.setChecked(darkSP);
         amount.setText(amountSP);

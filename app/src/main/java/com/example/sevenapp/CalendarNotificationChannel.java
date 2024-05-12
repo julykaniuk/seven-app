@@ -1,8 +1,6 @@
 package com.example.sevenapp;
 
-
 import android.app.Application;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
@@ -23,12 +21,10 @@ public class CalendarNotificationChannel extends Application {
                     "Event notifications",
                     NotificationManager.IMPORTANCE_HIGH
             );
-            channel1.setSound(null, null);
             channel1.setDescription("Notifications which remind the event before it's happened.");
 
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel1);
-
         }
     }
 }

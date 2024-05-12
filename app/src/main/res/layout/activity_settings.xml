@@ -113,10 +113,10 @@
         android:layout_height="42dp"
         android:backgroundTint="@color/black"
         android:text="@string/save"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintTop_toBottomOf="@+id/noti" />
 
     <Button
         android:id="@+id/changeButton"
@@ -134,7 +134,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="@string/darkMode"
         android:textColor="@color/black"
@@ -147,10 +147,62 @@
         android:id="@+id/darkSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
         android:thumbTint="@color/black"
         app:layout_constraintStart_toEndOf="@+id/textView9"
         app:layout_constraintTop_toBottomOf="@+id/changeButton" />
+
+    <TextView
+        android:id="@+id/holiday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/ukrainianholidays"
+        android:textColor="@color/black"
+
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <Switch
+        android:id="@+id/holiSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="28dp"
+        android:thumbTint="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/holiday"
+        app:layout_constraintTop_toBottomOf="@+id/darkSwitch" />
+
+    <TextView
+        android:id="@+id/noti"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/notification"
+        android:textColor="@color/black"
+
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/holiday" />
+
+    <Switch
+        android:id="@+id/notiSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="20dp"
+        android:thumbTint="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/noti"
+        app:layout_constraintTop_toBottomOf="@+id/holiSwitch" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
