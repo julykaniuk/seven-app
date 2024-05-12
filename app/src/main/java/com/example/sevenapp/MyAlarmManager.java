@@ -38,9 +38,9 @@ public class MyAlarmManager {
 
         if (cursor.moveToFirst()) {
             do {
-                eventName = cursor.getString(cursor.getColumnIndex(EventDB.Event.COLUMN_NAME));
-                startDate = cursor.getString(cursor.getColumnIndex(EventDB.Event.COLUMN_START));
-                endDate = cursor.getString(cursor.getColumnIndex(EventDB.Event.COLUMN_END));
+                eventName = cursor.getString(cursor.getColumnIndexOrThrow(EventDB.Event.COLUMN_NAME));
+                startDate = cursor.getString(cursor.getColumnIndexOrThrow(EventDB.Event.COLUMN_START));
+                endDate = cursor.getString(cursor.getColumnIndexOrThrow(EventDB.Event.COLUMN_END));
             } while (cursor.moveToNext());
         }
     }
@@ -52,9 +52,21 @@ public class MyAlarmManager {
 
         if (cursor.moveToFirst()) {
             do {
-                String date = cursor.getString(cursor.getColumnIndex(EventDB.Event.REMINDER_COLUMN_DATE));
-                id = cursor.getInt(cursor.getColumnIndex(EventDB.Event.REMINDER_COLUMN_ID));
-                createAlarm(date);
+                String date = "";
+                int dateColumnIndex = cursor.getColumnIndex(EventDB.Event.REMINDER_COLUMN_DATE);
+                if (dateColumnIndex != -1) {
+                    date = cursor.getString(dateColumnIndex);
+                }
+
+                int idColumnIndex = cursor.getColumnIndex(EventDB.Event.REMINDER_COLUMN_ID);
+                if (idColumnIndex != -1) {
+                    id = cursor.getInt(idColumnIndex);
+                }
+
+                if (!date.isEmpty()) {
+                    createAlarm(date);
+                }
+
             } while (cursor.moveToNext());
         }
     }
@@ -68,7 +80,7 @@ public class MyAlarmManager {
         intent.putExtra("start", startDate);
         intent.putExtra("end", endDate);
         intent.putExtra("id", id);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
 

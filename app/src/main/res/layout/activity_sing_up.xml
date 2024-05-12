@@ -44,42 +44,9 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView8" />
-    <EditText
-        android:id="@+id/singup_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/edittext_backround"
-        android:fontFamily="@font/poppins"
-        android:hint="@string/name2"
-        android:padding="12dp"
-        android:textColorHint="@color/gray"
-        android:textSize="14dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
-    <EditText
-        android:id="@+id/singup_username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/name"
-        android:padding="12dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:textColor="@color/gray"
-        android:textSize="14dp"
-        android:layout_marginTop="16dp"
-
-        android:fontFamily="@font/poppins"
-        android:background="@drawable/edittext_backround"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/account" />
 
     <EditText
-        android:id="@+id/singup_email"
+        android:id="@+id/signup_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -89,12 +56,48 @@
         android:fontFamily="@font/poppins"
         android:hint="@string/email"
         android:padding="12dp"
-        android:textColor="@color/gray"
+        android:textColorHint="@color/gray"
         android:textSize="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
+    <EditText
+        android:id="@+id/signup_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/edittext_backround"
+        android:fontFamily="@font/poppins"
+        android:layout_marginTop="16dp"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:hint="@string/password"
+        android:textColorHint="@color/gray"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
+
+    <EditText
+        android:id="@+id/signup_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/edittext_backround"
+        android:fontFamily="@font/poppins"
+        android:layout_marginTop="16dp"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:hint="@string/password"
+        android:textColorHint="@color/gray"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
+<!--
     <EditText
         android:id="@+id/singup_password"
         android:layout_width="match_parent"
@@ -112,7 +115,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email" />
-
+-->
 
 
     <TextView

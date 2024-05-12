@@ -28,6 +28,7 @@ public class EventDBHelper extends SQLiteOpenHelper {
 
         final String SQL_CREATE_EVENT_TABLE = "CREATE TABLE " + Event.TABLE_NAME +
                 "(" + Event.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+
                 Event.COLUMN_NAME + " TEXT NOT NULL, " +
                 Event.COLUMN_START + " TEXT NOT NULL, " +
                 Event.COLUMN_END + " TEXT NOT NULL, " +
@@ -35,15 +36,18 @@ public class EventDBHelper extends SQLiteOpenHelper {
                 Event.COLUMN_SERI_TYPE + " TEXT, " +
                 Event.COLUMN_LOCATION + " TEXT, " +
                 Event.COLUMN_LOCATION_LINK + " TEXT, " +
-                Event.COLUMN_NOTE + " TEXT" + ");";
+                Event.COLUMN_NOTE + " TEXT " +");";
 
         final String SQL_CREATE_REMINDER_TABLE = "CREATE TABLE " + Event.REMINDER_TABLE_NAME +
                 "(" + Event.REMINDER_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 Event.REMINDER_COLUMN_EID + " INTEGER NOT NULL, " +
-                Event.REMINDER_COLUMN_DATE + " TEXT NOT NULL);";
+                Event.REMINDER_COLUMN_DATE + " TEXT NOT NULL " + ");";
+
+
 
         sqLiteDatabase.execSQL(SQL_CREATE_EVENT_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_REMINDER_TABLE);
+
     }
 
     @Override
@@ -73,4 +77,5 @@ public class EventDBHelper extends SQLiteOpenHelper {
 
         return cursor;
     }
+
 }

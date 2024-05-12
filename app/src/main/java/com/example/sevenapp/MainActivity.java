@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import android.Manifest;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,17 +18,21 @@ public class MainActivity extends AppCompatActivity {
     private String userKey;
     private ActivityMainBinding binding;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         FloatingActionButton fab = findViewById(R.id.fabadd);
+
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Створюємо Intent, щоб відкрити нову активність
-                Intent intent = new Intent(MainActivity.this, NewEvent.class);  // Відкриває нову активність
+                Intent intent = new Intent(MainActivity.this, NewEvent.class);
+
                 startActivity(intent);  // Запускає активність
             }
         });
@@ -45,19 +50,13 @@ public class MainActivity extends AppCompatActivity {
                 replaceFragment(new CalendarFragment());
             } else if (item.getItemId() == R.id.profile) {
                 ProfileFragment profileFragment = new ProfileFragment();
-                if (userKey != null) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("USER_KEY", userKey);
-                    profileFragment.setArguments(bundle);
-                }
+
                 replaceFragment(profileFragment);
 
             }
 
             return true;
         });
-        Intent intent = getIntent();
-        userKey = intent.getStringExtra("USER_KEY");
 
     }
 

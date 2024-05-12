@@ -19,113 +19,61 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
-public class Login extends AppCompatActivity {
-    EditText loginUsername, loginPassword;
-    Button loginButton;
-    Button backButton;
-    TextView singupRedirectText;
-    TextView forgotPassxordText;
 
+import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
+import com.example.sevenapp.databinding.ActivityLoginBinding;
+
+public class Login extends AppCompatActivity {
+    ActivityLoginBinding binding;
+    DatabaseHelper databaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        loginUsername=findViewById(R.id.login_username);
-        loginPassword=findViewById(R.id.login_password);
-        loginButton=findViewById(R.id.login_Button);
-        backButton=findViewById(R.id.login_backButton);
-        singupRedirectText = findViewById(R.id.sing_up);
-
-        backButton.setOnClickListener(new View.OnClickListener() {
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        databaseHelper = new DatabaseHelper(this);
+        binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(Login.this,GetStarted.class);
-                startActivity(intent);
-            }
-        });
+            public void onClick(View view) {
+                String email = binding.loginEmail.getText().toString();
+                String password = binding.loginPassword.getText().toString();
+                if(email.equals("")||password.equals(""))
+                    Toast.makeText(Login.this, "All fields are mandatory", Toast.LENGTH_SHORT).show();
+                else{
+                    Boolean checkCredentials = databaseHelper.checkEmailPassword(email, password);
+                    if(checkCredentials == true){
+                        Toast.makeText(Login.this, "Login Successfully!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(Login.this, MainActivity.class);
+                        intent.putExtra("user_email", email);
+                        startActivity(intent);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!validateUsername()|!validatePassword()){
-
-                }else{
-                    checkUser();
-                }
-            }
-        });
-        singupRedirectText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(Login.this,SingUp.class);
-                startActivity(intent);
-            }
-        });
-
-
-    }
-    public Boolean validateUsername(){
-        String val=loginUsername.getText().toString();
-        if(val.isEmpty()){
-            loginUsername.setError("Username cannot be empty");
-            return false;
-        }else{
-            loginUsername.setError(null);
-            return true;
-        }
-    }
-
-    public Boolean validatePassword(){
-        String val=loginPassword.getText().toString();
-        if(val.isEmpty()){
-            loginPassword.setError("Password cannot be empty");
-            return false;
-        }else{
-            loginPassword.setError(null);
-            return true;
-        }
-    }
-
-    public void checkUser() {
-        String userUsername = loginUsername.getText().toString().trim();
-        String userPassword = loginPassword.getText().toString().trim();
-
-        DatabaseReference reference = FirebaseDatabase.getInstance("https://seven-41b84-default-rtdb.europe-west1.firebasedatabase.app/").getReference("users");
-        Query checkUserDatabase = reference.orderByChild("username").equalTo(userUsername);
-
-        checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    for (DataSnapshot userSnapshot : snapshot.getChildren()) {
-                        String passwordFromDB = userSnapshot.child("password").getValue(String.class);
-                        if (passwordFromDB.equals(userPassword)) {
-                            // Пароль введено правильно
-                            String userKey = userSnapshot.getKey();
-                            loginUsername.setError(null);
-                            Intent intent = new Intent(Login.this, MainActivity.class);
-                            intent.putExtra("USER_KEY", userKey);
-                            startActivity(intent);
-                        } else {
-                            // Неправильний пароль
-                            loginPassword.setError("Invalid Credentials");
-                            loginPassword.requestFocus();
-                        }
-                        return; // Після знаходження користувача і порівняння паролів можна завершити цикл
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(Login.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    // Користувача з таким ім'ям не існує
-                    loginUsername.setError("User does not exist");
-                    loginUsername.requestFocus();
                 }
             }
-
+        });
+        binding.signupRedirectText.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // Обробка скасування запиту, якщо потрібно
+            public void onClick(View view) {
+                Intent intent = new Intent(Login.this, SingUp.class);
+                startActivity(intent);
+            }
+        });
+
+        binding.loginBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Login.this, GetStarted.class);
+                startActivity(intent);
             }
         });
     }
+
 
 }

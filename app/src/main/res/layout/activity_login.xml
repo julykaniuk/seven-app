@@ -47,7 +47,7 @@
 
 
     <EditText
-        android:id="@+id/login_username"
+        android:id="@+id/login_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -56,9 +56,9 @@
         android:padding="12dp"
         android:textSize="16sp"
         android:fontFamily="@font/poppins"
-        android:textColor="@color/gray"
+        android:textColorHint="@color/gray"
         android:background="@drawable/edittext_backround"
-        android:hint="@string/name"
+        android:hint="@string/email"
         app:layout_constraintTop_toBottomOf="@+id/logintext" />
 
     <EditText
@@ -120,7 +120,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <TextView
-        android:id="@+id/sing_up"
+        android:id="@+id/signupRedirectText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
