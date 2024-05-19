@@ -1,4 +1,5 @@
 package com.example.sevenapp;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,7 +23,7 @@ public class EventList extends AppCompatActivity {
     private EventAdapter mAdapter;
     private int DAY, MONTH, YEAR;
     private String DAY_NAME, currentDate;
-
+    private boolean showHolidays = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +57,6 @@ public class EventList extends AppCompatActivity {
         dayNumberTV.setText(Integer.toString(DAY));
         dayNameTV.setText(DAY_NAME);
 
-
-        // new event
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,7 +68,6 @@ public class EventList extends AppCompatActivity {
                 startActivity(eventListIntent);
             }
         });
-
     }
 
     private Cursor getAllItems() {
@@ -87,7 +85,5 @@ public class EventList extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new EventAdapter(this, getAllItems(), "Time");
         recyclerView.setAdapter(mAdapter);
-
     }
-
 }

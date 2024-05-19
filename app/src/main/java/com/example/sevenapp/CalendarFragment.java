@@ -124,7 +124,7 @@ public class CalendarFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.example_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater); // Передаємо лише параметр menu
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
 

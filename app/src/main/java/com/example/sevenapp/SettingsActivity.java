@@ -2,6 +2,7 @@ package com.example.sevenapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import android.database.Cursor;
 
 import android.content.Context;
 import android.content.Intent;
@@ -43,6 +44,8 @@ public class SettingsActivity extends AppCompatActivity {
     public static final String NotificationSound = "NotificationSoundKey";
     public static final String DarkMode = "DarkModeKey";
 
+    private boolean showHolidays = true;
+
     public static final String NotificationEnabled = "NotificationEnabledKey";
 
     @Override
@@ -59,6 +62,20 @@ public class SettingsActivity extends AppCompatActivity {
         notiSwitch = findViewById(R.id.notiSwitch);
 
         sharedPreferences = getSharedPreferences(MyPreferences, Context.MODE_PRIVATE);
+        showHolidays = sharedPreferences.getBoolean("ShowHolidays", true);
+        ukrainianHolidaysSwitch.setChecked(showHolidays);
+        ukrainianHolidaysSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                showHolidays = isChecked;
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("ShowHolidays", isChecked);
+                editor.apply();
+            }
+        });
+
+
+
 
         notiSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

@@ -31,6 +31,8 @@ import androidx.fragment.app.Fragment;
 public class WeeklyListActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
     private String TYPE;
+    private boolean showHolidays;
+
     private RecyclerView recyclerView;
     private TextView monthTV, yearTV;
     private EventAdapter mAdapter;
@@ -81,13 +83,30 @@ public class WeeklyListActivity extends AppCompatActivity implements DatePickerD
     }
 
     public Cursor sqlQuery() {
-        String SQLQuery = "SELECT * FROM " + EventDB.Event.TABLE_NAME +
-                " WHERE " + EventDB.Event.COLUMN_START + ">= '" + startDate +
-                "' AND " + EventDB.Event.COLUMN_START + "<= '"+ endDate + "' ORDER BY datetime("
-                + EventDB.Event.COLUMN_START + ") ASC;" ;
+        String SQLQuery;
+        if (showHolidays) {
+            SQLQuery = "SELECT * FROM " + EventDB.Event.TABLE_NAME +
+                    " WHERE " + EventDB.Event.COLUMN_START + ">= '" + startDate +
+                    "' AND " + EventDB.Event.COLUMN_START + "<= '"+ endDate + "' ORDER BY datetime("
+                    + EventDB.Event.COLUMN_START + ") ASC;" ;
+        } else {
+            SQLQuery = "SELECT * FROM " + EventDB.Event.TABLE_NAME +
+                    " WHERE " + EventDB.Event.COLUMN_START + ">= '" + startDate +
+                    "' AND " + EventDB.Event.COLUMN_START + "<= '"+ endDate +
+                    "' AND " + EventDB.Event.COLUMN_IS_SPECIAL + " = 0 ORDER BY datetime("
+                    + EventDB.Event.COLUMN_START + ") ASC;";
+        }
         Cursor cursor = mDatabase.rawQuery(SQLQuery, null);
         return cursor;
     }
+
+    private Cursor getSpecialItems() {
+        String SQLQuery = "SELECT * FROM " + EventDB.Event.TABLE_NAME +
+                " WHERE " + EventDB.Event.COLUMN_IS_SPECIAL + " = 1"
+                + " ORDER BY datetime(" + EventDB.Event.COLUMN_START + ") ASC;" ;
+        return mDatabase.rawQuery(SQLQuery, null);
+    }
+
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth){
@@ -144,22 +163,12 @@ public class WeeklyListActivity extends AppCompatActivity implements DatePickerD
         return c;
     }
 
- /*   @Override
-    public void onResume() {
-        super.onResume();
-        mAdapter = new EventAdapter(this, sqlQuery(), TYPE);
-        recyclerView.setAdapter(mAdapter);
-
-    }*/
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.example_menu, menu);
         return true;
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
