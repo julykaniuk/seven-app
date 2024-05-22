@@ -66,7 +66,6 @@ public class AlertReceiver extends BroadcastReceiver {
             if (isNotificationEnabled) {
                 NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-                // Створюємо канал повідомлень
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "Event notifications", NotificationManager.IMPORTANCE_HIGH);
                     notificationManager.createNotificationChannel(channel);
@@ -75,7 +74,7 @@ public class AlertReceiver extends BroadcastReceiver {
                 Notification notification = new NotificationCompat.Builder(context, CHANNEL_ID)
                         .setSmallIcon(R.drawable.notifications)
                         .setContentTitle(name)
-                        .setContentText(startDate2) // Встановлюємо текст повідомлення
+                        .setContentText(startDate2)
                         .setPriority(NotificationCompat.PRIORITY_HIGH)
                         .setAutoCancel(true)
                         .setContentIntent(pendingIntent)

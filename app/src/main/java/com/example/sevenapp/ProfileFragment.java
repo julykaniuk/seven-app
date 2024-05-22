@@ -27,40 +27,10 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        edit = view.findViewById(R.id.edit);
-        userNameView = view.findViewById(R.id.textView);
+
         notificationButton=view.findViewById(R.id.changeNotificatinn);
         changeLanguage=view.findViewById(R.id.changeLanguage);
-        Bundle arguments = getArguments();
-        String userKey = arguments != null ? arguments.getString("USER_KEY") : null;
 
-        if (userKey != null) {
-            mDatabase = FirebaseDatabase.getInstance("https://seven-41b84-default-rtdb.europe-west1.firebasedatabase.app/").getReference("users").child(userKey);
-
-            // Отримати ім'я користувача з Firebase Realtime Database
-            mDatabase.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    String userName = dataSnapshot.child("username").getValue(String.class);
-                    if (userName != null) {
-                        userNameView.setText(userName); // Відображення імені користувача
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    // Обробка помилок, якщо потрібно
-                }
-            });
-    }
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), EditProfile.class);
-                intent.putExtra("username", userName);
-                startActivity(intent);
-            }
-        });
         notificationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

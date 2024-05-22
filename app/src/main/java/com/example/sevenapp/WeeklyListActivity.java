@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -23,7 +24,10 @@ import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;import androidx.fragment.app.FragmentManager;
+import java.util.Calendar;
+import java.util.Locale;
+
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.Fragment;
 
@@ -32,36 +36,39 @@ public class WeeklyListActivity extends AppCompatActivity implements DatePickerD
 
     private String TYPE;
     private boolean showHolidays;
-
+    String[] months;
     private RecyclerView recyclerView;
     private TextView monthTV, yearTV;
     private EventAdapter mAdapter;
     private SQLiteDatabase mDatabase;
     String startDate, endDate;
-    private String[] months = new String[]{"JAN", "FEB", "MAR", "APR", "MAY", "JUN",
-            "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
     Calendar c;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weekly_list);
+        Resources resources = getResources();
 
         EventDBHelper dbHelper = new EventDBHelper(this);
         mDatabase = dbHelper.getWritableDatabase();
+        months = resources.getStringArray(R.array.months);
 
         ImageButton weeklyButton = findViewById(R.id.weekButton);
         recyclerView = findViewById(R.id.weeklyRecyclerView);
         monthTV = findViewById(R.id.monthText);
+
         yearTV = findViewById(R.id.yearText);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         TYPE = getIntent().getStringExtra("Type");
         c = Calendar.getInstance();
-        startDate = "2020-05-11";
-        endDate = "2020-05-17";
+        startDate = formatCalendarToString(c);
+        endDate = formatCalendarToString(c);
+        showHolidays = true;
 
+        callOnDateSetMethod();
         weeklyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +82,9 @@ public class WeeklyListActivity extends AppCompatActivity implements DatePickerD
             }
         });
     }
-
+    private String formatCalendarToString(Calendar calendar) {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        return df.format(calendar.getTime());}
     public void recycleMaker() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new EventAdapter(this, sqlQuery(), TYPE);
@@ -86,13 +95,13 @@ public class WeeklyListActivity extends AppCompatActivity implements DatePickerD
         String SQLQuery;
         if (showHolidays) {
             SQLQuery = "SELECT * FROM " + EventDB.Event.TABLE_NAME +
-                    " WHERE " + EventDB.Event.COLUMN_START + ">= '" + startDate +
-                    "' AND " + EventDB.Event.COLUMN_START + "<= '"+ endDate + "' ORDER BY datetime("
-                    + EventDB.Event.COLUMN_START + ") ASC;" ;
+                    " WHERE " + EventDB.Event.COLUMN_START + " >= '" + startDate +
+                    "' AND " + EventDB.Event.COLUMN_START + " <= '" + endDate + "' ORDER BY datetime("
+                    + EventDB.Event.COLUMN_START + ") ASC;";
         } else {
             SQLQuery = "SELECT * FROM " + EventDB.Event.TABLE_NAME +
-                    " WHERE " + EventDB.Event.COLUMN_START + ">= '" + startDate +
-                    "' AND " + EventDB.Event.COLUMN_START + "<= '"+ endDate +
+                    " WHERE " + EventDB.Event.COLUMN_START + " >= '" + startDate +
+                    "' AND " + EventDB.Event.COLUMN_START + " <= '" + endDate +
                     "' AND " + EventDB.Event.COLUMN_IS_SPECIAL + " = 0 ORDER BY datetime("
                     + EventDB.Event.COLUMN_START + ") ASC;";
         }
@@ -100,26 +109,20 @@ public class WeeklyListActivity extends AppCompatActivity implements DatePickerD
         return cursor;
     }
 
-    private Cursor getSpecialItems() {
-        String SQLQuery = "SELECT * FROM " + EventDB.Event.TABLE_NAME +
-                " WHERE " + EventDB.Event.COLUMN_IS_SPECIAL + " = 1"
-                + " ORDER BY datetime(" + EventDB.Event.COLUMN_START + ") ASC;" ;
-        return mDatabase.rawQuery(SQLQuery, null);
-    }
 
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth){
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        c = Calendar.getInstance();
-        c.set(Calendar.YEAR, year);
-        c.set(Calendar.MONTH, month);
-        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        Calendar firstDay = initializeCalendar(year, month, dayOfMonth);
-        Calendar lastDay = initializeCalendar(year, month, dayOfMonth);
-        String text;
-        if (TYPE.equals("Weekly")) {
-            int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                c = Calendar.getInstance();
+                c.set(Calendar.YEAR, year);
+                c.set(Calendar.MONTH, month);
+                c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                Calendar firstDay = initializeCalendar(year, month, dayOfMonth);
+                Calendar lastDay = initializeCalendar(year, month, dayOfMonth);
+                String text;
+                if (TYPE.equals("Weekly")) {
+                    int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
 
             if (dayOfWeek != 1) {
                 lastDay.add(Calendar.DAY_OF_MONTH, 7 - dayOfWeek + 1);
@@ -153,6 +156,14 @@ public class WeeklyListActivity extends AppCompatActivity implements DatePickerD
         endDate = df.format(lastDay.getTime());
         recycleMaker();
     }
+    private void callOnDateSetMethod() {
+        Calendar currentDate = Calendar.getInstance();
+        int year = currentDate.get(Calendar.YEAR);
+        int month = currentDate.get(Calendar.MONTH);
+        int dayOfMonth = currentDate.get(Calendar.DAY_OF_MONTH);
+
+        onDateSet(null, year, month, dayOfMonth);
+    }
 
     public Calendar initializeCalendar(int year, int month, int dayOfMonth) {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -175,7 +186,10 @@ public class WeeklyListActivity extends AppCompatActivity implements DatePickerD
         int id = item.getItemId();
 
         if (id == R.id.calendar) {
-            finish();
+            Intent intent = new Intent(WeeklyListActivity.this, MainActivity.class);
+            intent.putExtra("showCalendar", true);
+            startActivity(intent);
+            return true;
         } else if (id == R.id.weekly && TYPE.equals("Monthly")) {
             Intent weeklyIntent = new Intent(WeeklyListActivity.this, WeeklyListActivity.class);
             weeklyIntent.putExtra("Type", "Weekly");

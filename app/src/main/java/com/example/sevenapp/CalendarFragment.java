@@ -1,5 +1,4 @@
 package com.example.sevenapp;
-
 import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -36,38 +35,36 @@ import static com.example.sevenapp.SettingsActivity.DarkMode;
 import static com.example.sevenapp.SettingsActivity.MyPreferences;
 import android.content.res.Configuration;
 import android.view.MenuItem;
+import android.content.res.Resources;
 
+import java.util.Locale;
 
 public class CalendarFragment extends Fragment {
 
     private CalendarView mCalendarView;
     private Calendar c;
     private Toolbar toolbar;
-
     private TextView monthTV, yearTV;
-    private String[] months = new String[]{"JAN", "FEB", "MAR", "APR", "MAY", "JUN",
-            "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
     private Button todayButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        toolbar = view.findViewById(R.id.toolbar);
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
         setHasOptionsMenu(true);
+        Resources resources = getResources();
 
         mCalendarView = view.findViewById(R.id.calendarView);
         monthTV = view.findViewById(R.id.monthText);
         yearTV = view.findViewById(R.id.yearText);
-        toolbar = view.findViewById(R.id.toolbar);
+        String[] monthsArray = resources.getStringArray(R.array.months);
 
         c = Calendar.getInstance();
-        monthTV.setText(months[c.get(Calendar.MONTH)]);
+        monthTV.setText(monthsArray[c.get(Calendar.MONTH)]);
         yearTV.setText(Integer.toString(c.get(Calendar.YEAR)));
 
-        if (!haveBatteryPermission())
-            haveBatteryPermission();
 
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -77,11 +74,11 @@ public class CalendarFragment extends Fragment {
                 c.set(Calendar.YEAR, year);
                 c.set(Calendar.MONTH, month);
                 c.set(Calendar.DAY_OF_MONTH, day);
-                monthTV.setText(months[c.get(Calendar.MONTH)]);
+                monthTV.setText(monthsArray[c.get(Calendar.MONTH)]);
                 yearTV.setText(Integer.toString(c.get(Calendar.YEAR)));
-                String currentDateString = DateFormat.getDateFormat(getActivity()).format(c.getTime());
+                String currentDateString = DateFormat.getDateFormat(requireContext()).format(c.getTime());
 
-                Intent eventListIntent = new Intent(getActivity(), EventList.class);
+                Intent eventListIntent = new Intent(requireContext(), EventList.class);
                 eventListIntent.putExtra("DAY", day);
                 eventListIntent.putExtra("MONTH", month);
                 eventListIntent.putExtra("YEAR", year);
@@ -96,7 +93,7 @@ public class CalendarFragment extends Fragment {
             public void onClick(View v) {
                 mCalendarView.setDate(c.getTimeInMillis());
                 c = Calendar.getInstance();
-                monthTV.setText(months[c.get(Calendar.MONTH)]);
+                monthTV.setText(monthsArray[c.get(Calendar.MONTH)]);
                 yearTV.setText(Integer.toString(c.get(Calendar.YEAR)));
             }
         });
@@ -105,28 +102,12 @@ public class CalendarFragment extends Fragment {
     }
 
 
-    public boolean haveBatteryPermission() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
-                    == PackageManager.PERMISSION_GRANTED) {
-                return true;
-            } else {
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS}, 1);
-                return false;
-            }
-        }
-        return true;
-    }
-
-
-
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.example_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -7,6 +7,7 @@ import android.os.Build;
 
 public class CalendarNotificationChannel extends Application {
     public static final String CHANNEL_ID = "channel1";
+    String channelDescription = getString(R.string.channel_description);
 
     @Override
     public void onCreate() {
@@ -21,7 +22,7 @@ public class CalendarNotificationChannel extends Application {
                     "Event notifications",
                     NotificationManager.IMPORTANCE_HIGH
             );
-            channel1.setDescription("Notifications which remind the event before it's happened.");
+            channel1.setDescription(channelDescription);
 
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel1);

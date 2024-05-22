@@ -30,16 +30,17 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Створюємо Intent, щоб відкрити нову активність
                 Intent intent = new Intent(MainActivity.this, NewEvent.class);
 
-                startActivity(intent);  // Запускає активність
+                startActivity(intent);
             }
         });
-        if (savedInstanceState == null) { // Переконайтеся, що це тільки при першому завантаженні
+        if (savedInstanceState == null) {
             replaceFragment(new HomeFragment());
         }
-
+        if (getIntent().getBooleanExtra("showCalendar", false)) {
+            showCalendarFragment();
+        }
         binding.bottomNavigation.setBackground(null);
         binding.bottomNavigation.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.home) {
@@ -59,7 +60,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
+    public void showCalendarFragment() {
+        CalendarFragment calendarFragment = new CalendarFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, calendarFragment);
+        fragmentTransaction.commit();
+    }
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

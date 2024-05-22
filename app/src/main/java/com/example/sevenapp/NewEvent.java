@@ -40,9 +40,9 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
     private EditText eventNameET, noteET;
     private TextView title;
     private ImageButton startDateButton, endDateButton, startTimeButton, endTimeButton;
-    private Button saveButton, deleteButton, repeatButton, reminderButton, locationButton;
+    private Button saveButton, deleteButton, repeatButton, reminderButton;
     private String currentDateString, start, end, eventName, repeatType, untilDate, repeatCount,
-            note, location, link, repeatFrequency, durationType, startDB, endDB, realStart,
+            note, link, repeatFrequency, durationType, startDB, endDB, realStart,
             seriText, amountSP;
     private Calendar c;
     public int ID = -1, SERI = -1, dateSP;
@@ -122,7 +122,7 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
         deleteButton = findViewById(R.id.closeEvent);
         reminderButton = findViewById(R.id.reminderButton);
         repeatButton = findViewById(R.id.repeatButton);
-        locationButton = findViewById(R.id.taskLocation);
+
 
         if (getIntent().getStringExtra("EDIT") != null) {
             eventName = getIntent().getStringExtra("EVENT NAME");
@@ -160,14 +160,14 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
 
         else {
             c = Calendar.getInstance();
-            startDatem = new MyDate(getIntent().getIntExtra("YEAR", 1970),
-                    getIntent().getIntExtra("MONTH", 0),
-                    getIntent().getIntExtra("DAY", 1),
+            startDatem = new MyDate(c.get(Calendar.YEAR),
+                    c.get(Calendar.MONTH),
+                    c.get(Calendar.DAY_OF_MONTH),
                     c.get(Calendar.HOUR_OF_DAY),
                     c.get(Calendar.MINUTE));
-            endDatem = new MyDate(getIntent().getIntExtra("YEAR", 1970),
-                    getIntent().getIntExtra("MONTH", 0),
-                    getIntent().getIntExtra("DAY", 1),
+            endDatem = new MyDate(c.get(Calendar.YEAR),
+                    c.get(Calendar.MONTH),
+                    c.get(Calendar.DAY_OF_MONTH),
                     c.get(Calendar.HOUR_OF_DAY),
                     c.get(Calendar.MINUTE));
 
@@ -253,11 +253,9 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
             @Override
             public void onClick(View v) {
                 if (!dateBoundValid()) {
-                    Snackbar mySnackbar = Snackbar.make(v, "Date interval is not valid." +
-                            " Reminder could not be created.", Snackbar.LENGTH_SHORT);
+                    Snackbar mySnackbar = Snackbar.make(v, getString(R.string.date_interval_invalid), Snackbar.LENGTH_SHORT);
                     mySnackbar.show();
-                }
-                else {
+                } else {
                     reminded = true;
                     Intent reminderIntent = new Intent(NewEvent.this, Reminder.class);
                     reminderIntent.putExtra("DAY", startDatem.day);
@@ -271,15 +269,7 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
             }
         });
 
-        locationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent locationIntent = new Intent(NewEvent.this,
-                        PlacePickerActivity.class);
-                startActivityForResult(locationIntent, 3);
 
-            }
-        });
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -291,16 +281,15 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
 
                 Snackbar mySnackbar;
                 if (!dateBoundValid()) {
-                    mySnackbar = Snackbar.make(view, "Date interval is not valid." +
-                            " Event could not be saved.", Snackbar.LENGTH_SHORT);
+                    mySnackbar = Snackbar.make(view, getString(R.string.invalid_date_interval), Snackbar.LENGTH_SHORT);
                     mySnackbar.show();
                 } else if (eventNameET.getText().toString().trim().length() == 0) {
-                    mySnackbar = Snackbar.make(view, "Event name can not be null.", Snackbar.LENGTH_SHORT);
+                    mySnackbar = Snackbar.make(view, getString(R.string.event_name_empty), Snackbar.LENGTH_SHORT);
                     mySnackbar.show();
                 }
                 else if (SERI != -1 && getIntent().getStringExtra("EDIT") != null) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(NewEvent.this);
-                    builder.setTitle("Update Event");
+                    builder.setTitle(getString(R.string.update_event));
                     builder.setPositiveButton("Only this event", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -344,7 +333,7 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
                         repeater(view);
                     else {
                         cv.put(EventDB.Event.COLUMN_SERI, -1);
-                        if (getIntent().getStringExtra("EDIT") == null) { // new
+                        if (getIntent().getStringExtra("EDIT") == null) {
                             insertToDB(view);
                             if (!reminded)
                                 defaultReminderSettings();
@@ -416,15 +405,14 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
             if (data.hasExtra("Repeat Type")) {
                 seriText = data.getStringExtra("Seri Type");
                 repeatType = data.getStringExtra("Repeat Type");
-                if (!repeatType.equals("Never")) {
+                if (!getString(R.string.never).equals(repeatType)) {
                     repeatFrequency = data.getStringExtra("Repeat Frequency");
                     durationType = data.getStringExtra("Duration Type");
-                    if (durationType.equals("Repetitions"))
+                    if (getString(R.string.repetitions).equals(durationType))
                         repeatCount = data.getStringExtra("Repeat Count");
-                    else if (durationType.equals("Until"))
+                    else if (getString(R.string.until).equals(durationType))
                         untilDate = data.getStringExtra("Until Date");
-                    if (repeatType.equals("Weekly")) {
-                        // starts from sunday
+                    if (getString(R.string.weekly).equals(repeatType)) {
                         daysOfWeek = data.getBooleanArrayExtra("Days of Week");
                     }
                 }
@@ -451,11 +439,7 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
                 ID = getMaxID() + 1;
         }
         else if  (resultCode == RESULT_OK && requestCode == 3) {
-            if(data.hasExtra("address")) {
-                location = data.getStringExtra("address");
-                link = data.getStringExtra("link");
-                located = true;
-            }
+
         }
     }
 
@@ -497,9 +481,7 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
                     id = cursor.getInt(idColumnIndex);
                 } while (cursor.moveToNext());
             } else {
-                // Handle the case where the column index is -1 (column not found)
-                // This might involve logging an error, throwing an exception, or handling it in another appropriate way
-            }
+                 }
         }
 
         if (id == ID) {
@@ -573,12 +555,12 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
     public void repeater(View view) {
         SERI = findMaxSeri() + 1;
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        diffDatem = new MyDate(endDatem.year - startDatem.year,endDatem.month - startDatem.month,
+        diffDatem = new MyDate(endDatem.year - startDatem.year, endDatem.month - startDatem.month,
                 endDatem.day - startDatem.day, endDatem.hour - startDatem.hour,
                 endDatem.minute - startDatem.minute);
         Date until = startDatem.getDate();
         Date today = new Date();
-        if (durationType.equals("Until")) {
+        if (durationType.equals(getString(R.string.until))) {
             try {
                 until = df.parse(untilDate);
                 today = startDatem.getDate();
@@ -586,80 +568,67 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             Calendar c = Calendar.getInstance();
             c.setTime(startDatem.getDate());
             c.add(Calendar.DAY_OF_MONTH, 1);
             today = c.getTime();
         }
 
-        if (durationType.equals("Forever"))
+        if (durationType.equals(getString(R.string.forever)))
             repeatCount = "100";
         int i = 0;
 
-        while( i < Integer.parseInt(repeatCount) || today.before(until)) { // repetitions
+        while (i < Integer.parseInt(repeatCount) || today.before(until)) {
             int every = Integer.parseInt(repeatFrequency);
-            if (repeatType.equals("Daily")) {
-                MyDate bufferDate = new MyDate(0, 0, i*every, 0, 0);
+            if (repeatType.equals(getString(R.string.daily))) {
+                MyDate bufferDate = new MyDate(0, 0, i * every, 0, 0);
                 today = repeatEventCreator(bufferDate, until, view);
-            }
-            else if (repeatType.equals("Weekly")) {
+            } else if (repeatType.equals(getString(R.string.weekly))) {
                 int dayOfWeek = startDatem.getCalendar().get(Calendar.DAY_OF_WEEK);
                 if (i == 0) {
                     for (int k = dayOfWeek; k < 8; k++) {
                         if (daysOfWeek[k - 1] && !(dayOfWeek == 1 && k == 1)) {
-                            MyDate bufferDate = new MyDate(0, 0, k - dayOfWeek,
-                                    0, 0);
+                            MyDate bufferDate = new MyDate(0, 0, k - dayOfWeek, 0, 0);
                             today = repeatEventCreator(bufferDate, until, view);
                         }
-                        if (k == 7 && daysOfWeek[0]) {  // bu hala neden olmadı!!!!
+                        if (k == 7 && daysOfWeek[0]) {
                             int day = 7 - dayOfWeek + 1;
-                            if (dayOfWeek == 1)
-                                day = 0;
-                            MyDate bufferDate = new MyDate(0, 0, day,
-                                    0, 0);
+                            if (dayOfWeek == 1) day = 0;
+                            MyDate bufferDate = new MyDate(0, 0, day, 0, 0);
                             today = repeatEventCreator(bufferDate, until, view);
                         }
                     }
-                }
-                else {
+                } else {
                     for (int k = 1; k < 7; k++) {
                         int sunday = 7 - dayOfWeek + 1;
                         if (daysOfWeek[k] && !((i == Integer.parseInt(repeatCount) - 1) && (dayOfWeek == 1))) {
-                            MyDate bufferDate = new MyDate(0, 0,
-                                    (sunday + k) + 7 * (i - 1), 0, 0);
+                            MyDate bufferDate = new MyDate(0, 0, (sunday + k) + 7 * (i - 1), 0, 0);
                             today = repeatEventCreator(bufferDate, until, view);
                         }
                         if (k == 6 && daysOfWeek[0]) {
                             MyDate bufferDate;
                             if (dayOfWeek == 1)
-                                bufferDate = new MyDate(0, 0,
-                                        (sunday) + 7 * (i - 1), 0, 0);
+                                bufferDate = new MyDate(0, 0, (sunday) + 7 * (i - 1), 0, 0);
                             else
-                                bufferDate = new MyDate(0, 0,
-                                        (sunday) + 7 * i, 0, 0);
+                                bufferDate = new MyDate(0, 0, (sunday) + 7 * i, 0, 0);
                             today = repeatEventCreator(bufferDate, until, view);
                         }
                     }
                 }
-            }
-            else if (repeatType.equals("Monthly")) {
+            } else if (repeatType.equals(getString(R.string.monthly))) {
                 MyDate bufferDate = new MyDate(0, i * every, 0, 0, 0);
                 today = repeatEventCreator(bufferDate, until, view);
-            }
-            else if (repeatType.equals("Yearly")) {
+            } else if (repeatType.equals(getString(R.string.yearly))) {
                 MyDate bufferDate = new MyDate(i * every, 0, 0, 0, 0);
                 today = repeatEventCreator(bufferDate, until, view);
             }
-            if (!durationType.equals("Until"))
-                today = until;
+            if (!durationType.equals(getString(R.string.until))) today = until;
             i++;
         }
 
         MyAlarmManager manager = new MyAlarmManager(ID, getApplicationContext());
         manager.findDates();
-
     }
 
     public Date repeatEventCreator(MyDate buffer, Date until, View view) {
@@ -672,8 +641,9 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
         String startStr = df.format(start.getTime());
         String endStr = df.format(end.getTime());
 
-        if ((durationType.equals("Until") && start.getTime().before(until) &&
-                end.getTime().before(until)) || !durationType.equals("Until")) {
+        if ((getString(R.string.until).equals(durationType) && start.getTime().before(until) &&
+                end.getTime().before(until)) || !getString(R.string.until).equals(durationType)) {
+
             cv = new ContentValues();
             cv.put(EventDB.Event.COLUMN_NAME, eventName);
             cv.put(EventDB.Event.COLUMN_START, startStr);
@@ -681,18 +651,13 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
             cv.put(EventDB.Event.COLUMN_NOTE, noteET.getText().toString());
             cv.put(EventDB.Event.COLUMN_SERI, SERI);
             cv.put(EventDB.Event.COLUMN_SERI_TYPE, seriText);
-            if (located) {
-                cv.put(EventDB.Event.COLUMN_LOCATION, location);
-                cv.put(EventDB.Event.COLUMN_LOCATION_LINK, link);
-            }
             insertToDB(view);
-            if (!reminded)
-                defaultReminderSettings();
+            if (!reminded) defaultReminderSettings();
             addReminder(cv);
-
         }
         return end.getTime();
     }
+
 
     public Calendar addBuffer (MyDate buffer, Calendar c) {
         c.add(Calendar.DAY_OF_MONTH, buffer.day);
@@ -715,8 +680,6 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
             if (idColumnIndex != -1) {
                 id = cursor.getInt(idColumnIndex);
             } else {
-                // Handle the case where the column index is -1 (column not found)
-                // This might involve logging an error, throwing an exception, or handling it in another appropriate way
             }
         }
         if (cursor != null) {
@@ -735,11 +698,11 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
             if (idColumnIndex != -1) {
                 do {
                     int id = cursor.getInt(idColumnIndex);
-                    if (type.equals("Delete")) {
+                    if (getString(R.string.delete).equals(durationType)) {
                         deleteRow(view, id);
                         deleteReminder(id);
                     }
-                    else if (type.equals("Update")) {
+                    else if (getString(R.string.until).equals(durationType)) {
                         String date = findStartDate(id);
                         String newStartDate = date.split(" ")[0] + " " + start.split(" ")[1];
                         String newEndDate = date.split(" ")[0] + " " + end.split(" ")[1];
@@ -757,8 +720,6 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
                     }
                 } while (cursor.moveToNext());
             } else {
-                // Handle the case where the column index is -1 (column not found)
-                // This might involve logging an error, throwing an exception, or handling it in another appropriate way
             }
         }
 
@@ -778,10 +739,10 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
                 if (cursor.moveToFirst()) {
                     do {
                         int id = cursor.getInt(idColumnIndex);
-                        if (type.equals("Delete")) {
+                        if (getString(R.string.delete).equals(durationType)) {
                             deleteRow(view, id);
                             deleteReminder(id);
-                        } else if (type.equals("Update")) {
+                        }else if (getString(R.string.until).equals(durationType)) {
                             String date = findStartDate(id);
                             String newStartDate = date.split(" ")[0] + " " + start.split(" ")[1];
                             String newEndDate = date.split(" ")[0] + " " + end.split(" ")[1];
@@ -799,10 +760,7 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
                         }
                     } while (cursor.moveToNext());
                 }
-            } else {
-                // Handle the case where the column index is -1 (column not found)
-                // This might involve logging an error, throwing an exception, or handling it in another appropriate way
-            }
+            } else { }
         }
         MyAlarmManager manager = new MyAlarmManager(ID, getApplicationContext());
         manager.findDates();
@@ -821,10 +779,7 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
                         start = cursor.getString(startColumnIndex);
                     } while (cursor.moveToNext());
                 }
-            } else {
-                // Handle the case where the column index is -1 (column not found)
-                // This might involve logging an error, throwing an exception, or handling it in another appropriate way
-            }
+            } else {}
 
         }
         return start;
@@ -852,10 +807,7 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
                     startDB = cursor.getString(startDBColumnIndex);
                     endDB = cursor.getString(endDBColumnIndex);
                 } while (cursor.moveToNext());
-            } else {
-                // Handle the case where any column index is -1 (column not found)
-                // This might involve logging an error, throwing an exception, or handling it in another appropriate way
-            }
+            } else {}
         }
     }
 
@@ -865,17 +817,14 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
                 ") FROM " + EventDB.Event.TABLE_NAME + ")";
         Cursor cursor = mDatabase.query(EventDB.Event.TABLE_NAME, null, SQLQuery,
                 null, null, null, null);
-        int seri = -1; // Initialize seri with a default value
+        int seri = -1;
         if (cursor.moveToFirst()) {
             int seriColumnIndex = cursor.getColumnIndex(EventDB.Event.COLUMN_SERI);
-            if (seriColumnIndex != -1) { // Check if seriColumnIndex is valid
+            if (seriColumnIndex != -1) {
                 do {
                     seri = cursor.getInt(seriColumnIndex);
                 } while (cursor.moveToNext());
-            } else {
-                // Handle the case where the column index is -1 (column not found)
-                // This might involve logging an error, throwing an exception, or handling it in another appropriate way
-            }
+            } else {}
         }
         return seri;
     }
@@ -892,10 +841,7 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
                 do {
                     id = cursor.getInt(idColumnIndex);
                 } while (cursor.moveToNext());
-            } else {
-                // Handle the case where the column index is -1 (column not found)
-                // This might involve logging an error, throwing an exception, or handling it in another appropriate way
-            }
+            } else { }
         }
         return id;
     }
@@ -903,8 +849,9 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
     public void deleteRow(View view, int id) {
         mDatabase.delete(EventDB.Event.TABLE_NAME, EventDB.Event.COLUMN_ID + "=" + id,
                 null);
+        Snackbar mySnackbar = Snackbar.make(view, getString(R.string.event_deleted), Snackbar.LENGTH_SHORT);
 
-        Snackbar mySnackbar = Snackbar.make(view, "Event deleted.", Snackbar.LENGTH_SHORT);
+
         mySnackbar.show();
     }
 
@@ -914,16 +861,14 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
         cv.put(EventDB.Event.COLUMN_START, start);
         cv.put(EventDB.Event.COLUMN_END, end);
         cv.put(EventDB.Event.COLUMN_NOTE, note);
-        if (located) {
-            cv.put(EventDB.Event.COLUMN_LOCATION, location);
-            cv.put(EventDB.Event.COLUMN_LOCATION_LINK, link);
-        }
+
     }
 
     public void updateRow(View view, int id) {
         mDatabase.update(EventDB.Event.TABLE_NAME, cv, EventDB.Event.COLUMN_ID + "=" + id,
                 null);
-        Snackbar mySnackbar = Snackbar.make(view, "Event updated.", Snackbar.LENGTH_SHORT);
+        Snackbar mySnackbar = Snackbar.make(view, getString(R.string.event_updated), Snackbar.LENGTH_SHORT);
+
         mySnackbar.show();
         saved = true;
         eventNameET.getText().clear();
@@ -931,7 +876,8 @@ public class NewEvent extends AppCompatActivity implements DatePickerDialog.OnDa
 
     public void insertToDB(View view) {
         mDatabase.insert(EventDB.Event.TABLE_NAME, null, cv);
-        Snackbar mySnackbar = Snackbar.make(view, "Event created.", Snackbar.LENGTH_SHORT);
+        Snackbar mySnackbar = Snackbar.make(view, getString(R.string.event_created), Snackbar.LENGTH_SHORT);
+
         mySnackbar.show();
 
         eventNameET.getText().clear();

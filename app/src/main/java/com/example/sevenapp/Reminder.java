@@ -1,16 +1,14 @@
 package com.example.sevenapp;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.AlarmManager;
 import android.content.Context;
+import android.app.TimePickerDialog;
 
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
-import android.app.TimePickerDialog;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -27,20 +25,18 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
-
 import com.google.android.material.snackbar.Snackbar;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class Reminder extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,
-        TimePickerDialog.OnTimeSetListener{
+        TimePickerDialog.OnTimeSetListener {
     private SQLiteDatabase mDatabase;
     private Spinner dateSpinner;
     private ImageButton calButton, timeButton;
+
     private EditText amountET;
     private Button addButton, deleteButton, clearButton1, clearButton2, clearButton3, clearButton4,
             clearButton5, clearButton6;
@@ -51,11 +47,10 @@ public class Reminder extends AppCompatActivity implements DatePickerDialog.OnDa
     private Bundle args;
     private int pos = 0, DAY, YEAR, MONTH, HOUR, MINUTE, ID, index = 0, gonnaDelete = 0;
     private Calendar c, startCal;
-    private Date startDate;
     private ArrayList<Integer> minutes, hours, days;
     private ArrayList<String> dates;
-    private ArrayList<Button> clearButtons = new ArrayList<Button>();
-    private ArrayList<TextView> reminders = new ArrayList<TextView>();
+    private ArrayList<Button> clearButtons = new ArrayList<>();
+    private ArrayList<TextView> reminders = new ArrayList<>();
     private boolean deleteAll = false;
     Intent datas;
 
@@ -103,19 +98,17 @@ public class Reminder extends AppCompatActivity implements DatePickerDialog.OnDa
         startCal.set(Calendar.YEAR, YEAR);
         startCal.set(Calendar.MINUTE, MINUTE);
 
-        startDate = startCal.getTime();
-
-        dates = new ArrayList<String>();
-        minutes = new ArrayList<Integer>();
-        hours = new ArrayList<Integer>();
-        days = new ArrayList<Integer>();
+        dates = new ArrayList<>();
+        minutes = new ArrayList<>();
+        hours = new ArrayList<>();
+        days = new ArrayList<>();
         datas = new Intent();
 
         initializeLists();
         makeInvisible();
         findReminders();
 
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(Reminder.this,
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(Reminder.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.date_array));
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dateSpinner.setAdapter(spinnerAdapter);
@@ -152,32 +145,31 @@ public class Reminder extends AppCompatActivity implements DatePickerDialog.OnDa
                 args.putInt("MINUTE", MINUTE);
                 timePicker.setArguments(args);
                 timePicker.show(getSupportFragmentManager(), "time picker");
-
             }
         });
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (reminderRB.getText().toString().equals("Before")) {
+                if (getString(R.string.before).equals(reminderRB.getText().toString())) {
                     Calendar start = createCalendar(YEAR, MONTH, DAY, HOUR, MINUTE);
                     int amount = Integer.parseInt(amountET.getText().toString());
-                    if (pos == 0) // minute
+                    if (pos == 0)
                         minutes.add(amount);
-                    else if (pos == 1)  // hour
+                    else if (pos == 1)
                         hours.add(amount);
-                    else if (pos == 2) // day
+                    else if (pos == 2)
                         days.add(amount);
-                    Snackbar mySnackbar = Snackbar.make(v, "Reminder created.", Snackbar.LENGTH_SHORT);
+                    Snackbar mySnackbar = Snackbar.make(v, getString(R.string.reminder_created), Snackbar.LENGTH_SHORT);
                     mySnackbar.show();
                     cleanView();
                 }
-                else if (reminderRB.getText().toString().equals("Custom")) {
-                    if(c.getTime().after(startDate)) {
-                        Snackbar mySnackbar = Snackbar.make(v, "Reminder can not be after the " +
-                                "event.", Snackbar.LENGTH_SHORT);
+                else if (getString(R.string.custom).equals(reminderRB.getText().toString())) {
+                    if(c.getTime().after(startCal.getTime())) {
+                        Snackbar mySnackbar = Snackbar.make(v, getString(R.string.reminder_after_event), Snackbar.LENGTH_SHORT);
                         mySnackbar.show();
                     }
+
                     else {
                         dates.add(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(c.getTime()));
                         cleanView();
@@ -190,11 +182,11 @@ public class Reminder extends AppCompatActivity implements DatePickerDialog.OnDa
             @Override
             public void onClick(View v) {
                 deleteAll = true;
-                dates = new ArrayList<String>();
-                minutes = new ArrayList<Integer>();
-                hours = new ArrayList<Integer>();
-                days = new ArrayList<Integer>();
-                Snackbar mySnackbar = Snackbar.make(v, "All reminders deleted.", Snackbar.LENGTH_SHORT);
+                dates = new ArrayList<>();
+                minutes = new ArrayList<>();
+                hours = new ArrayList<>();
+                days = new ArrayList<>();
+                Snackbar mySnackbar = Snackbar.make(v, getString(R.string.all_reminders_deleted), Snackbar.LENGTH_SHORT);
                 mySnackbar.show();
             }
         });
@@ -238,6 +230,7 @@ public class Reminder extends AppCompatActivity implements DatePickerDialog.OnDa
                 deleteReminder();
             }
         });
+
         clearButton6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -280,10 +273,9 @@ public class Reminder extends AppCompatActivity implements DatePickerDialog.OnDa
                     cancelAlarm(id);
                 }
             } while (cursor.moveToNext());
-            cursor.close(); // Закриття курсора після використання
+            cursor.close();
         }
     }
-
 
     private void cancelAlarm(int id) {
         AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
@@ -301,9 +293,8 @@ public class Reminder extends AppCompatActivity implements DatePickerDialog.OnDa
         datas.putExtra("deleteAll", deleteAll);
 
         setResult(RESULT_OK, datas);
-        super.onBackPressed(); // Виклик методу з батьківського класу
+        super.onBackPressed();
     }
-
 
     public void cleanView() {
         amountET.setVisibility(View.INVISIBLE);
@@ -328,22 +319,21 @@ public class Reminder extends AppCompatActivity implements DatePickerDialog.OnDa
                 cursor.moveToNext();
             }
         }
-        cursor.close(); // Закриття курсора після використання
+        cursor.close();
     }
-
 
     public void reminderCheck(View view) {
         int radioId = reminderRG.getCheckedRadioButtonId();
         reminderRB = findViewById(radioId);
         String name = reminderRB.getText().toString();
 
-        if (reminderRB.getText().toString().equals("Before")) {
+        if (getString(R.string.before).equals(reminderRB.getText().toString())) {
             amountET.setVisibility(View.VISIBLE);
             dateSpinner.setVisibility(View.VISIBLE);
             calButton.setVisibility(View.INVISIBLE);
             timeButton.setVisibility(View.INVISIBLE);
         }
-        else if (reminderRB.getText().toString().equals("Custom")) {
+        else if (getString(R.string.custom).equals(reminderRB.getText().toString())) {
             amountET.setVisibility(View.INVISIBLE);
             dateSpinner.setVisibility(View.INVISIBLE);
             calButton.setVisibility(View.VISIBLE);
@@ -375,7 +365,6 @@ public class Reminder extends AppCompatActivity implements DatePickerDialog.OnDa
     }
 
     public void makeInvisible() {
-
         clearButton1.setVisibility(View.INVISIBLE);
         clearButton2.setVisibility(View.INVISIBLE);
         clearButton3.setVisibility(View.INVISIBLE);
@@ -406,5 +395,4 @@ public class Reminder extends AppCompatActivity implements DatePickerDialog.OnDa
         reminders.add(reminder5);
         reminders.add(reminder6);
     }
-
 }

@@ -15,7 +15,9 @@ import android.os.Bundle;
 public class LanguageChange extends AppCompatActivity {
     private RadioGroup languageRadioGroup;
     private RadioButton englishRadio;
+
     private RadioButton ukrainianRadio;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +45,7 @@ public class LanguageChange extends AppCompatActivity {
         setInitialCheckedRadio();
         Button backButton = findViewById(R.id.back_button);
         backButton.setOnClickListener(v -> {
-            finish(); // Завершуємо поточну активність
+            finish();
         });
     }
 
@@ -53,7 +55,9 @@ public class LanguageChange extends AppCompatActivity {
         Configuration config = new Configuration();
         config.locale = locale;
         getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+
     }
+
 
     private void setInitialCheckedRadio() {
         String currentLang = Locale.getDefault().getLanguage();

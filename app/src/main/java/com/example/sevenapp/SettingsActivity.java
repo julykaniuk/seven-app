@@ -32,7 +32,7 @@ public class SettingsActivity extends AppCompatActivity {
     EditText amount;
     Spinner timeSpinner;
     Button changeButton, saveButtonSettings;
-    Switch darkMode, ukrainianHolidaysSwitch, notiSwitch;
+    Switch  ukrainianHolidaysSwitch, notiSwitch;
     SharedPreferences sharedPreferences;
     int dateSP;
     boolean darkSP;
@@ -56,7 +56,7 @@ public class SettingsActivity extends AppCompatActivity {
         amount = findViewById(R.id.amountET);
         timeSpinner = findViewById(R.id.timeSpinner);
         changeButton = findViewById(R.id.changeButton);
-        darkMode = findViewById(R.id.darkSwitch);
+
         saveButtonSettings = findViewById(R.id.saveButtonSettings);
         ukrainianHolidaysSwitch = findViewById(R.id.holiSwitch);
         notiSwitch = findViewById(R.id.notiSwitch);
@@ -106,21 +106,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        darkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean(DarkMode, darkMode.isChecked());
-                editor.apply();
 
-                if (isChecked)
-                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                else
-                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                loadAndUpdateData();
-
-            }
-        });
 
         changeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,7 +139,6 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // Your existing code here
         if (resultCode == RESULT_OK && requestCode == 0) {
             if (data != null) {
                 Uri uri = (Uri) data.getExtras().get(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
@@ -174,7 +159,6 @@ public class SettingsActivity extends AppCompatActivity {
         dateSP = sharedPreferences.getInt(ReminderDate, 0);
         notiSwitch.setChecked(sharedPreferences.getBoolean(NotificationEnabled, false));
 
-        darkMode.setChecked(darkSP);
         amount.setText(amountSP);
         timeSpinner.setSelection(dateSP);
     }
