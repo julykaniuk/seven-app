@@ -12,6 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import android.content.Context;
+import android.content.Intent;
 public class EventDBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "calendar.db";
     public static final int DATABASE_VERSION = 1;
@@ -117,7 +119,7 @@ public class EventDBHelper extends SQLiteOpenHelper {
                         EventDB.Event.COLUMN_START + ", " +
                         EventDB.Event.COLUMN_END + ", " +
                         EventDB.Event.COLUMN_IS_SPECIAL +
-                        ") VALUES ( 'День пам’яті та перемоги над нацизмом у Другій світовій війні 1939–1945 років;', '2024-05-08 00:00:00', '2024-05-08 23:59:59', 1);",
+                        ") VALUES ( 'День пам’яті та перемоги над нацизмом', '2024-05-08 00:00:00', '2024-05-08 23:59:59', 1);",
                 "INSERT INTO " + EventDB.Event.TABLE_NAME + " (" +
                         EventDB.Event.COLUMN_NAME + ", " +
                         EventDB.Event.COLUMN_START + ", " +

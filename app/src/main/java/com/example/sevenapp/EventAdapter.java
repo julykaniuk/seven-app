@@ -26,6 +26,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
     private Context mContext;
@@ -35,10 +36,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     private SQLiteDatabase mDatabase;
     private int ID;
     private String type;
-    private String[] days = new String[]{"Sunday", "Monday", "Tuesday", "Wednesday", "Friday",
-            "Saturday"};
-    private String[] months = new String[]{"January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"};
+    private Locale currentLocale;
 
     public EventAdapter(Context context, Cursor cursor, String type) {
         mContext = context;
@@ -46,6 +44,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         EventDBHelper dbHelper = new EventDBHelper(context);
         mDatabase = dbHelper.getWritableDatabase();
         this.type = type;
+        currentLocale = context.getResources().getConfiguration().locale;
+
     }
 
 
@@ -91,30 +91,20 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                 Calendar c = Calendar.getInstance();
                 Date currentDate = c.getTime();
                 if (end != null && end.getTime() - currentDate.getTime() < 0) {
-                    eventNameTV.setTextColor(Color.parseColor("#BAA4CE"));
+                    eventNameTV.setTextColor(Color.parseColor("#9B9B9B"));
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
             }
 
             String date = "hey";
-            Calendar c = Calendar.getInstance();
             eventNameTV.setText(name);
-            if (type.equals("Time"))
-                date = startDate.split(" ")[1] + " - " + endDate.split(" ")[1];
-            else if (type.equals("Weekly")){
-                try {
-                    Date start = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(startDate);
-                    c.setTime(start);
-                    date = days[c.get(Calendar.DAY_OF_WEEK) - 1] + ", " + months[c.get(Calendar.MONTH)]
-                            + " " + c.get(Calendar.DAY_OF_MONTH);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-            else {
-                String text = startDate.split(" ")[0];
-                date = months[Integer.parseInt(text.split("-")[1]) - 1] + " " + text.split("-")[2];
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, MMMM dd", currentLocale);
+            try {
+                Date start = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(startDate);
+                date = dateFormat.format(start);
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
             eventTimeTV.setText(date);
 
@@ -148,6 +138,4 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             notifyDataSetChanged();
         }
     }
-
-
 }

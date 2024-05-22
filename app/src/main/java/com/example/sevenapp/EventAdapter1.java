@@ -1,5 +1,6 @@
 package com.example.sevenapp;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -9,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,16 +18,14 @@ import java.util.Locale;
 public class EventAdapter1 extends RecyclerView.Adapter<EventAdapter1.EventViewHolder> {
     private Context mContext;
     private Cursor mCursor;
-    private OnItemClickListener listener;
+    private Locale currentLocale;
 
 
-    public interface OnItemClickListener {
-        void onItemClick(String eventName, String start, String end);
-    }
     public EventAdapter1(Context context, Cursor cursor) {
         mContext = context;
         mCursor = cursor;
-        this.listener = listener;
+        currentLocale = context.getResources().getConfiguration().locale;
+
     }
 
     @NonNull
@@ -55,11 +53,11 @@ public class EventAdapter1 extends RecyclerView.Adapter<EventAdapter1.EventViewH
         if (startDate == null || startDate.isEmpty()) {
             holder.time.setText("N/A");
         } else {
-            String time = extractTime(startDate);
+            String time = extractTime(startDate, currentLocale); // Виклик методу з поточною локалізацією
             holder.time.setText(time);
         }
 
-        setDateDetails(holder, startDate);
+        setDateDetails(holder, startDate, currentLocale); // Виклик методу з поточною локалізацією
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,26 +71,24 @@ public class EventAdapter1 extends RecyclerView.Adapter<EventAdapter1.EventViewH
         });
     }
 
-    private String extractTime(String fullDateTime) {
-        System.out.println("Parsing date/time: " + fullDateTime); // Додаткове відладкове повідомлення
-        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US);
-        SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm", Locale.US);
+    private String extractTime(String fullDateTime, Locale locale) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", locale);
+        SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm", locale);
 
         try {
             Date date = inputFormat.parse(fullDateTime);
             return outputFormat.format(date);
         } catch (ParseException e) {
-            System.err.println("Error parsing date: " + fullDateTime + ", error: " + e.getMessage());
             e.printStackTrace();
             return "Error";
         }
     }
 
-    private void setDateDetails(EventViewHolder holder, String startDate) {
-        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-        SimpleDateFormat dayFormat = new SimpleDateFormat("EEE", Locale.US); // Пн, Вт, Ср, ...
-        SimpleDateFormat dateFormat = new SimpleDateFormat("d", Locale.US); // 1, 2, 3, ...
-        SimpleDateFormat monthFormat = new SimpleDateFormat("MMM", Locale.US); // Січ, Лют, ...
+    private void setDateDetails(EventViewHolder holder, String startDate, Locale locale) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", locale);
+        SimpleDateFormat dayFormat = new SimpleDateFormat("EEE", locale); // Пн, Вт, Ср, ...
+        SimpleDateFormat dateFormat = new SimpleDateFormat("d", locale); // 1, 2, 3, ...
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MMM", locale); // Січ, Лют, ...
 
         if (startDate == null || startDate.isEmpty()) {
             return;
@@ -106,7 +102,6 @@ public class EventAdapter1 extends RecyclerView.Adapter<EventAdapter1.EventViewH
                 holder.month.setText(monthFormat.format(date));
             }
         } catch (ParseException e) {
-            System.err.println("Error parsing start date: " + startDate + ", error: " + e.getMessage());
             e.printStackTrace();
         }
     }

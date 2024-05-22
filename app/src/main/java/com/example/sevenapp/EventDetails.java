@@ -21,7 +21,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class EventDetails extends AppCompatActivity {
-    private TextView eventNameTV, locationTV, dateTV, reminderTV, repeatTV, noteTV;
+    private TextView eventNameTV,  dateTV, reminderTV, repeatTV, noteTV;
     private Button shareButton, editButton;
     private SQLiteDatabase mDatabase;
     private String start, end, eventName, link;
@@ -35,7 +35,6 @@ public class EventDetails extends AppCompatActivity {
         mDatabase = dbHelper.getWritableDatabase();
 
         eventNameTV = findViewById(R.id.eventNameTV);
-        locationTV = findViewById(R.id.locationTV);
         dateTV = findViewById(R.id.dateTV);
         reminderTV = findViewById(R.id.reminderTV);
         repeatTV = findViewById(R.id.repeatTV);
@@ -71,21 +70,13 @@ public class EventDetails extends AppCompatActivity {
                 shareIntent1.setType("text/plain");
                 String text = "Event Name: "+ eventNameTV.getText().toString() +"\n" +
                         "Date: " + dateTV.getText().toString();
-                if (!locationTV.getText().toString().equals(" "))
-                    text = text + "\n" + "Location: " + locationTV.getText().toString() + " " + link;
+
                 shareIntent1.putExtra(Intent.EXTRA_TEXT, text);
                 startActivity(shareIntent1);
             }
         });
 
-        locationTV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-                        Uri.parse(link));
-                startActivity(intent);
-            }
-        });
+
     }
 
     public void onResume() {
@@ -108,11 +99,6 @@ public class EventDetails extends AppCompatActivity {
             noteTV.setText(note);
         else
             noteTV.setText(" ");
-
-        if (location != null)
-            locationTV.setText(location);
-        else
-            locationTV.setText(" ");
 
         if (seriType != null)
             repeatTV.setText(seriType);
@@ -152,7 +138,7 @@ public class EventDetails extends AppCompatActivity {
                 link = cursor.getString(linkIndex);
             }
         }
-        cursor.close(); // Always close the cursor when done with it to avoid resource leaks
+        cursor.close();
         findReminders(ID);
         writeToTV(note, location, seriType);
     }
@@ -172,7 +158,6 @@ public class EventDetails extends AppCompatActivity {
                 } while (cursor.moveToNext());
             }
         } else {
-            // Обробка випадку, коли стовпець не знайдено
             dateText = "REMINDER_COLUMN_DATE не знайдено";
         }
         cursor.close();

@@ -72,11 +72,15 @@ public class EventList extends AppCompatActivity {
 
     private Cursor getAllItems() {
         String SQLQuery = "SELECT * FROM " + EventDB.Event.TABLE_NAME +
-                " WHERE " + EventDB.Event.COLUMN_START + " GLOB '" + currentDate + "*'"
-                + " ORDER BY datetime(" + EventDB.Event.COLUMN_START + ") ASC;" ;
+                " WHERE " + EventDB.Event.COLUMN_START + " GLOB '" + currentDate + "*'";
+        if (!showHolidays) {
+            SQLQuery += " AND " + EventDB.Event.COLUMN_IS_SPECIAL  + " = 0";
+        }
+        SQLQuery += " ORDER BY datetime(" + EventDB.Event.COLUMN_START + ") ASC;" ;
 
         return mDatabase.rawQuery(SQLQuery, null);
     }
+
 
     @Override
     public void onResume() {
