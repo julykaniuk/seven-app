@@ -2,6 +2,8 @@
     <string name="app_name">Seven app</string>
     <!--Onboarding Walkthrough Screens -->
     <string name="screen1">Time management</string>
+    <string name="skip">Skip</string>
+    <string name="next">Next</string>
     <string name="screen2">Organization of events</string>
     <string name="screen3">Work done on time</string>
     <string name="screen1desk">Learn how to apply time management in your life with the help of this application.</string>
@@ -43,7 +45,35 @@
     <string name="todo">ToDo List</string>
 
 
-    <!--Search-->
+    <!--description-->
+    <string name="channel_description">Notifications which remind the event before its happened.</string>
+    <string name="channel_name">Event notifications</string>
+    <string name="reminder_created">Reminder created.</string>
+    <string name="reminder_after_event">Reminder can not be after the event.</string>
+    <string name="all_reminders_deleted">All reminders deleted.</string>
+    <string name="old_repeat_warning">Events cant repeat twice. Could not save.</string>
+    <string name="delete_old_repeats">Delete old repeats?</string>
+    <string name="repeats_deleted">Repeats deleted successfully.</string>
+    <string name="set_date">Set date</string>
+    <string name="clear">Clear</string>
+    <string name="every">Every</string>
+    <string name="days">Days</string>
+    <string name="never">Never</string>
+    <string name="repetitions">Repetitions</string>
+    <string name="until">Until</string>
+    <string name="event_deleted">Event deleted</string>
+    <string name="event_updated">The event has been updated.</string>
+    <string name="event_created">The event has been created</string>
+    <string name="event_name_empty">The event name cannot be empty</string>
+    <string name="repeat_twice">Events cant repeat twice. Could not be saved</string>
+    <string name="select_repeat">Please select repeat and duration type</string>
+
+    <string name="daily">Daily</string>
+    <string name="yearly">Yearly</string>
+
+    <string name="select_ringtone_title">Select ringtone for notifications:</string>
+    <string name="notification_saved">Notification sound saved</string>
+    <string name="settings_saved">Settings saved</string>
 
     <!--Calendar-->
     <string name="today">TODAY</string>
@@ -95,6 +125,9 @@
     <string name="titled">Title</string>
     <string name="before">Before</string>
     <string name="custom">Custom</string>
+    <string name="date_interval_invalid">Date interval is not valid. Reminder could not be created.</string>
+    <string name="invalid_date_interval">Invalid date interval. Could not save the event.</string>
+    <string name="update_event">Update Event</string>
 
     <string name="add">Add</string>
     <string name="add_participants">Add participants</string>
@@ -124,5 +157,32 @@
     </string-array>
     <string name="default_notification_sound">Default Notification Sound</string>
 
+    <string-array name="months">
+        <item>JAN</item>
+        <item>FEB</item>
+        <item>MAR</item>
+        <item>APR</item>
+        <item>MAY</item>
+        <item>JUN</item>
+        <item>JUL</item>
+        <item>AUG</item>
+        <item>SEP</item>
+        <item>OCT</item>
+        <item>NOV</item>
+        <item>DEC</item>
+    </string-array>
+    <string name="week_button">Choose a Week</string>
+    <string name="settings">Settings</string>
+    <string name="years">Years</string>
+    <string name="monthss">months</string>
+    <string name="forever">Forever</string>
+    <string name="duration">Duration</string>
+    <string name="m">M</string>
+    <string name="tu">T</string>
+    <string name="w">W</string>
+    <string name="t">T</string>
+    <string name="f">F</string>
+    <string name="s">S</string>
+    <string name="su">S</string>
 
 </resources>

@@ -90,4 +90,68 @@
     <string name="nov">Листоп.</string>
     <string name="dec">Груд.</string>
     <string name="ukrainianholidays">Свята України</string>
+    <string name="skip">Пропустити</string>
+    <string name="next">Наступна</string>
+    <string-array name="months">
+        <item>Січень</item>
+        <item>Лютий</item>
+        <item>Березень</item>
+        <item>Квітень</item>
+        <item>Травень</item>
+        <item>Червень</item>
+        <item>Липень</item>
+        <item>Серпень</item>
+        <item>Вересень</item>
+        <item>Жовтень</item>
+        <item>Листопад</item>
+        <item>Грудень</item>
+    </string-array>
+    <string name="week_button">Вибрати тиждень</string>
+    <string name="settings">Налаштування</string>
+    <string name="channel_description">Сповіщення, які нагадують про подію перед її настанням.</string>
+    <string name="channel_name">Сповіщення про події</string>
+    <string name="reminder_created">Нагадування створено.</string>
+    <string name="reminder_after_event">Нагадування не може бути після події.</string>
+    <string name="all_reminders_deleted">Всі нагадування видалено.</string>
+    <string name="old_repeat_warning">Події не можуть повторюватися двічі. Не вдалося зберегти.</string>
+    <string name="delete_old_repeats">Видалити старі повторення?</string>
+    <string name="repeats_deleted">Повторення успішно видалені.</string>
+    <string name="set_date">Встановити дату</string>
+    <string name="clear">Очистити</string>
+    <string name="every">Кожен</string>
+    <string name="days">Дні</string>
+    <string name="select_ringtone_title">Виберіть мелодію для сповіщень:</string>
+    <string name="notification_saved">Звук сповіщення збережено</string>
+    <string name="settings_saved">Налаштування збережено</string>
+    <string name="date_interval_invalid">Дата інтервал не є дійсним. Нагадування не може бути створено.</string>
+    <string name="invalid_date_interval">Інтервал дат недійсний. Не вдалося зберегти подію.</string>
+    <string name="event_name_empty">Назва події не може бути порожньою.</string>
+    <string name="update_event">Оновити подію</string>
+    <string name="never">Ніколи</string>
+    <string name="repetitions">Повторити</string>
+    <string name="until">До</string>
+    <string name="daily">Щоденно</string>
+    <string name="yearly">Щорічно</string>
+    <string name="event_deleted">Подія видалена</string>
+    <string name="event_updated">Подія оновлена</string>
+    <string name="event_created">Подія створена</string>
+    <string name="years">Рік</string>
+    <string name="monthss">місяць</string>
+    <string name="forever">Завжди</string>
+    <string name="duration">Тривалість</string>
+    <string name="m">П</string>
+    <string name="tu">В</string>
+    <string name="w">С</string>
+    <string name="t">Ч</string>
+    <string name="f">П</string>
+    <string name="s">С</string>
+    <string name="su">Н</string>
+    <string name="repeat_twice">Події не можуть повторюватися двічі. Не вдалося зберегти</string>
+    <string name="select_repeat">Виберіть тип повтору та тривалості</string>
+    <string-array name="date_array">
+        <item>хвилин</item>
+        <item>годин</item>
+        <item>днів</item>
+    </string-array>
+
 </resources>

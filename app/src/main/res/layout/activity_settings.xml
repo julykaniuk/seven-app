@@ -68,6 +68,8 @@
         android:layout_marginTop="28dp"
         android:fontFamily="@font/poppins"
         android:text="@string/before"
+        android:textColor="@color/black"
+
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,6 +79,7 @@
         android:id="@+id/timeSpinner"
         android:layout_width="145dp"
         android:layout_height="25dp"
+        android:textColor="@color/black"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -86,9 +89,11 @@
         android:id="@+id/amountET"
         android:layout_width="51dp"
         android:layout_height="51dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="20dp"
         android:ems="10"
+        android:textColor="@color/black"
+
         android:fontFamily="@font/poppins"
         android:inputType="number"
         android:textAlignment="center"
@@ -129,29 +134,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView12" />
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="@string/darkMode"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/changeButton" />
-
-    <Switch
-        android:id="@+id/darkSwitch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:thumbTint="@color/black"
-        app:layout_constraintStart_toEndOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/changeButton" />
 
     <TextView
         android:id="@+id/holiday"
@@ -166,7 +148,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintTop_toBottomOf="@+id/changeButton" />
 
     <Switch
         android:id="@+id/holiSwitch"
@@ -174,10 +156,10 @@
         android:layout_height="wrap_content"
 
         android:layout_marginStart="20dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:thumbTint="@color/black"
         app:layout_constraintStart_toEndOf="@+id/holiday"
-        app:layout_constraintTop_toBottomOf="@+id/darkSwitch" />
+        app:layout_constraintTop_toBottomOf="@+id/changeButton" />
 
     <TextView
         android:id="@+id/noti"

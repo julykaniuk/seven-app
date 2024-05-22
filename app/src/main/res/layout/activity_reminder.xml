@@ -95,7 +95,7 @@
     <EditText
         android:id="@+id/amountET"
         android:layout_width="51dp"
-        android:layout_height="39dp"
+        android:layout_height="60dp"
         android:layout_marginStart="116dp"
         android:layout_marginTop="36dp"
         android:ems="10"
@@ -119,8 +119,8 @@
 
     <ImageButton
         android:id="@+id/calendarButton"
-        android:layout_width="42dp"
-        android:layout_height="40dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="140dp"
         android:layout_marginTop="36dp"
         android:backgroundTint="@color/black"
@@ -131,8 +131,8 @@
 
     <ImageButton
         android:id="@+id/timeButton"
-        android:layout_width="43dp"
-        android:layout_height="41dp"
+        android:layout_width="60dp"
+        android:layout_height="45dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="140dp"
         android:backgroundTint="@color/black"
@@ -165,6 +165,7 @@
 
         <RadioButton
             android:id="@+id/beforeRB"
+            android:textColor="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
@@ -179,6 +180,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
             android:text="@string/custom"
+            android:textColor="@color/black"
+
             android:textAlignment="textStart"
             android:textSize="18sp"
             android:textStyle="bold"

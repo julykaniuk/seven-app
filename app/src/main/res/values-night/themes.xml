@@ -2,6 +2,19 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.SevenApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <!-- Customize your dark theme here. -->
+        <item name="colorPrimary">@color/black</item> <!-- Головний колір -->
+        <item name="colorPrimaryVariant">@color/gray</item> <!-- Варіант головного кольору -->
+        <item name="colorOnPrimary">@color/white</item> <!-- Текстовий колір на головному кольорі -->
+        <item name="android:statusBarColor">@color/black</item> <!-- Кольор рядка статусу -->
+        <item name="android:navigationBarColor">@color/black</item> <!-- Кольор панелі навігації -->
+        <item name="android:windowBackground">#BDBBBB</item> <!-- Колір фону вікна -->
+        <item name="colorSurface">@color/white</item> <!-- Колір поверхні -->
+        <item name="colorOnSurface">@color/black</item> <!-- Текстовий колір на поверхні -->
+        <item name="colorControlNormal">@color/gray1</item> <!-- Колір контролю в стані спокою -->
+        <item name="colorControlActivated">@color/gray</item> <!-- Колір контролю в стані активності -->
+        <item name="colorControlHighlight">@color/gray</item> <!-- Колір виділення контролю -->
+
+        <item name="android:textColor">@color/black</item> <!-- Колір тексту -->
     </style>
 </resources>

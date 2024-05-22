@@ -10,6 +10,7 @@
         android:id="@+id/language_radio_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="200dp"
         tools:layout_editor_absoluteX="-16dp">
@@ -18,12 +19,15 @@
             android:id="@+id/english_radio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:layout_marginStart="16dp"
             android:text="English" />
 
         <RadioButton
             android:id="@+id/ukrainian_radio"
             android:layout_width="wrap_content"
+
+            android:textColor="@color/black"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="Українська" />

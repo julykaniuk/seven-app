@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".Repeat">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
     tools:context=".Repeat">
 
     <Button
@@ -34,69 +39,82 @@
         <RadioButton
             android:id="@+id/neverR"
             android:layout_width="match_parent"
+            android:textColor="@color/black"
+
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
-            android:text="Never"
+            android:text="@string/never"
             android:onClick="repeatCheck"/>
 
         <RadioButton
             android:id="@+id/dailyR"
             android:layout_width="131dp"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
+
             android:fontFamily="@font/poppins_semibold"
-            android:text="Daily"
+            android:text="@string/daily"
             android:onClick="repeatCheck"/>
 
         <RadioButton
             android:id="@+id/weeklyR"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
+
             android:fontFamily="@font/poppins_semibold"
-            android:text="Weekly"
+            android:text="@string/weekly"
             android:onClick="repeatCheck"/>
 
         <RadioButton
             android:id="@+id/monthlyR"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
+
             android:fontFamily="@font/poppins_semibold"
-            android:text="Monthly"
+            android:text="@string/monthly"
             android:onClick="repeatCheck"/>
 
         <RadioButton
             android:id="@+id/yearlyR"
+            android:textColor="@color/black"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
-            android:text="Yearly"
+            android:text="@string/yearly"
             android:onClick="repeatCheck"/>
 
     </RadioGroup>
 
-    <TextView
-        android:id="@+id/everyText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="23dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="Every"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/everyET"
-        app:layout_constraintHorizontal_bias="0.856"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/repeatRadioGroup" />
+        <TextView
+            android:id="@+id/everyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/every"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/everyET"
+            app:layout_constraintHorizontal_bias="0.869"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/repeatRadioGroup" />
 
-    <EditText
+        <EditText
         android:id="@+id/everyET"
         android:layout_width="52dp"
         android:layout_height="42dp"
         android:layout_marginTop="15dp"
         android:inputType="numberDecimal"
         android:text="1"
-        android:textAlignment="center"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+
+            android:textAlignment="center"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -108,8 +126,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="23dp"
         android:fontFamily="@font/poppins_semibold"
-        android:text="day"
-        android:textColor="@color/white"
+        android:text="@string/days"
+        android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -122,7 +140,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="M "
+        android:text="@string/m"
+        android:textColor="@color/black"
+
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.099"
@@ -135,7 +155,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="W "
+        android:text="@string/w"
+        android:textColor="@color/black"
+
         android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/tuesdayCB"
         app:layout_constraintTop_toBottomOf="@+id/everyET"
@@ -146,7 +168,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="T "
+        android:text="@string/t"
+        android:textColor="@color/black"
+
         android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/wednesdayCB"
         app:layout_constraintTop_toBottomOf="@+id/everyET"
@@ -157,8 +181,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="T "
+        android:text="@string/tu"
         android:visibility="invisible"
+        android:textColor="@color/black"
+
         app:layout_constraintStart_toEndOf="@+id/mondayCB"
         app:layout_constraintTop_toBottomOf="@+id/everyET"
         android:onClick="dayChecked"/>
@@ -168,7 +194,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="F "
+        android:text="@string/f"
+        android:textColor="@color/black"
+
         android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/thursdayCB"
         app:layout_constraintTop_toBottomOf="@+id/everyET"
@@ -179,7 +207,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="S"
+        android:text="@string/s"
+        android:textColor="@color/black"
+
         android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/sundayCB"
         app:layout_constraintHorizontal_bias="0.157"
@@ -192,7 +222,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="S "
+        android:text="@string/su"
+        android:textColor="@color/black"
+
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.669"
@@ -218,7 +250,7 @@
     <RadioGroup
         android:id="@+id/durationRadioGroup"
         android:layout_width="138dp"
-        android:layout_height="97dp"
+        android:layout_height="150dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -230,7 +262,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
-            android:text="Forever"
+            android:text="@string/forever"
+            android:textColor="@color/black"
+
             android:onClick="durationCheck"/>
 
         <RadioButton
@@ -238,16 +272,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
-            android:text="Repetitions"
+            android:text="@string/repetitions"
+            android:textColor="@color/black"
+
             android:onClick="durationCheck"/>
 
         <RadioButton
             android:id="@+id/untilR"
             android:layout_width="match_parent"
+            android:textColor="@color/black"
+
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
-            android:text="Until"
-            android:onClick="durationCheck"/>
+            android:onClick="durationCheck"
+            android:text="@string/until" />
     </RadioGroup>
 
     <TextView
@@ -256,7 +294,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/poppins_semibold"
-        android:text="Duration"
+        android:text="@string/duration"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -265,42 +303,45 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/thursdayCB" />
 
-    <ImageButton
-        android:id="@+id/calendarButton"
-        android:layout_width="32dp"
-        android:layout_height="33dp"
-        android:backgroundTint="@color/white"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.18"
-        app:layout_constraintStart_toEndOf="@+id/durationRadioGroup"
-        app:layout_constraintTop_toBottomOf="@+id/repeatET"
-        app:srcCompat="@android:drawable/ic_menu_today" />
+        <ImageButton
+            android:id="@+id/calendarButton"
+            android:layout_width="32dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/black"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.171"
+            app:layout_constraintStart_toEndOf="@+id/durationRadioGroup"
+            app:layout_constraintTop_toBottomOf="@+id/repeatET"
+            app:srcCompat="@android:drawable/ic_menu_today" />
 
-    <EditText
-        android:id="@+id/repeatET"
-        android:layout_width="31dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="44dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:text="1"
-        android:visibility="invisible"
-        android:textAlignment="center"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/durationRadioGroup"
-        app:layout_constraintTop_toBottomOf="@+id/durationText" />
+        <EditText
+            android:id="@+id/repeatET"
+            android:layout_width="31dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="72dp"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:text="1"
+            android:textColor="@color/black"
 
-    <Button
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/durationRadioGroup"
+            app:layout_constraintTop_toBottomOf="@+id/durationText" />
+
+        <Button
         android:id="@+id/saveButtonRepeat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/black"
-        android:text="Save"
+        android:text="@string/save"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.476"
@@ -319,4 +360,5 @@
         app:layout_constraintTop_toBottomOf="@+id/saveButtonRepeat" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
